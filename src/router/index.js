@@ -13,32 +13,32 @@ const routes = [
   {
     path: "/About",
     name: "About",
-    component: () => import("../views/Boke.vue"),
+    component: () => import("../views/Boke/Boke.vue"),
   },
   {
     path: "/Login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/User/Login.vue"),
   },
   {
     path: "/Reg",
     name: "Reg",
-    component: () => import("../views/Reg.vue"),
+    component: () => import("../views/User/Reg.vue"),
   },
   {
     path: "/User",
     name: "User",
-    component: () => import("../views/User.vue"),
+    component: () => import("../views/User/User.vue"),
   },
   {
     path: "/Kege",
     name: "Kege",
-    component: () => import("../views/Kege.vue"),
+    component: () => import("../views/Kege/Kege.vue"),
   },
   {
     path: "/Yuncun",
     name: "Yuncun",
-    component: () => import("../views/Yuncun.vue"),
+    component: () => import("../views/Yuncun/Yuncun.vue"),
   },
 ];
 
