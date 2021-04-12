@@ -21,7 +21,7 @@
 
 <script>
 import { Toast } from "vant";
-import { reg,zhuce } from "../services/auto";
+import { reg,zhuce } from "../../services/auto";
 export default {
   name: "Login",
   data() {

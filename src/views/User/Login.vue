@@ -17,7 +17,6 @@
     :rules="[{ required: true, message: '请填写密码' }]"
   />
   <div style="margin: 16px;">
-    <van-button round block type="info" native-type="submit">提交</van-button>
   </div>
 </van-form>
   </div>
@@ -25,9 +24,9 @@
 
 <script>
 import { Toast } from "vant";
-import { getToken } from "../utils/tools";
-import { setToken } from "../utils/tools";
-import { login } from "../services/auto";
+import { getToken } from "../../utils/tools";
+import { setToken } from "../../utils/tools";
+import { login } from "../../services/auto";
 export default {
    name:'Login',
   data() {
