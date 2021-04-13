@@ -45,7 +45,7 @@ import { getToken,setToken,setCookie,getCookie} from "../../utils/tools";
 import { } from "../../utils/tools";
 import { login } from "../../services/auto";
 export default {
-   name:'Login',
+  name: "Login",
   data() {
     return {
       username: "",
