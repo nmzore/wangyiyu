@@ -6,8 +6,12 @@ import router from "./router";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
+import less from "less";
+
 Vue.use(ElementUI);
 Vue.use(Vant);
+Vue.use(less);
+Vue.use(Element);
 Vue.config.productionTip = false;
 
 new Vue({
