@@ -12,10 +12,7 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "element-ui": "^2.15.1",
-    "less": "^4.1.1",
-    "less-loader": "^8.1.0",
     "nprogress": "^0.2.0",
-    "sass": "^1.32.8",
     "vant": "^2.12.12",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
@@ -32,6 +29,6 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "vue-template-compiler": "^2.6.11",
-    "webpack": "^5.32.0"
+    "webpack": "^4.0.0"
   }
 }
