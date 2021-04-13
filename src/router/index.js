@@ -40,6 +40,11 @@ const routes = [
     name: "Yuncun",
     component: () => import("../views/Yuncun/Yuncun.vue"),
   },
+  {
+    path: "/Mokuai",
+    name: "Mokuai",
+    component: () => import("../views/All/Mokuai.vue"),
+  },
 ];
 
 const router = new VueRouter({

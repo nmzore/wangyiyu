@@ -9,3 +9,6 @@ export function reg(data) {
 export function zhuce(data) {
     return get("/captcha/sent", data);
 }
+export function yonghu(data) {
+    return get("/user/account", data);
+}
