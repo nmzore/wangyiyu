@@ -10,9 +10,19 @@ const routes = [{
     component: Home,
   },
   {
-    path: "/About",
-    name: "About",
+    path: "/boke",
+    name: "Boke",
     component: () => import("../views/Boke/Boke.vue"),
+  },
+   {
+    path: "/hear",
+    name: "Hear",
+    component: () => import("../components/boke/Hear.vue"),
+  },
+    {
+    path: "/find",
+    name: "Find",
+    component: () => import("../components/boke/Find.vue"),
   },
   {
     path: "/Login",
