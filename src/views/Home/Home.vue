@@ -2,7 +2,7 @@
   <div class="home">
     <!-- header -->
     <div class="header">
-      <van-icon name="wap-nav" />
+      <mokuai style=" padding: 10px;"></mokuai>
       <!-- v-model="value" -->
       <van-search
         shape="round"
@@ -129,6 +129,7 @@
 
 <script>
 import axios from "axios";
+import mokuai from "../../components/All/mokuai";
 // import { get } from "../../utils/request";
 export default {
   name: "Home",
@@ -139,7 +140,9 @@ export default {
       srs: [],
     };
   },
-  components: {},
+   components: {
+    mokuai,
+  },
   mounted() {},
   method: {
     //私人订制 刷新
