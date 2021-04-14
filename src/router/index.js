@@ -39,7 +39,16 @@ const routes = [{
     name: "User",
     component: () => import("../views/User/User.vue"),
   
-  }, {
+  },
+  {
+    path: "/likelist",
+    name: "Likelist",
+    component: () => import("../views/User/likelist/Likelist.vue"),
+    meta: {
+      showTabbar: false, // 不显底部导航
+    },
+  },
+  {
     path: "/SouSuo",
     name: "SouSuo",
     component: () => import("../views/Kege/SouSuo.vue"),
