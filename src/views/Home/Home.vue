@@ -424,6 +424,7 @@ export default {
   name: "Home",
   data() {
     return {
+      active: 0,
       banners: [],
       gds: [],
       srs1: [],
@@ -446,14 +447,13 @@ export default {
             "https://img0.baidu.com/it/u=1017673628,2213309026&fm=26&fmt=auto&gp=0.jpg",
         },
       ],
-      active: 0,
     };
   },
   components: {
     mokuai,
   },
   mounted() {},
-  method: {},
+  methods: {},
   created() {
     //轮播图请求
     axios.get("http://localhost:3000/banner").then((res) => {
