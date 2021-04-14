@@ -118,16 +118,7 @@ const routes = [
       showTabbar: true,
     },
   },
-  {
-    path: "/Mokuai",
-    name: "Mokuai",
-    component: () => import("../views/All/mokuai.vue"),
-  },
-  {
-    path: "/bofang",
-    name: "bofang",
-    component: () => import("../views/All/bofang.vue"),
-  },
+
 ];
 
 const router = new VueRouter({
