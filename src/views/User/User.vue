@@ -3,11 +3,7 @@
     <!-- 侧边栏 -->
     <div>
       <!-- <van-icon name="wap-nav" /> -->
-<<<<<<< HEAD
       <mokuai style=" padding: 10px;"></mokuai>
-=======
-      <mokuai style="padding: 10px"></mokuai>
->>>>>>> 1eb6d7351c287d22d2143a4a43e7af7473141dec
     </div>
     <!-- 用户信息 -->
     <div class="user">
