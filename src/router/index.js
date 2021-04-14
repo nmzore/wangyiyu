@@ -72,7 +72,12 @@ const routes = [{
   {
     path: "/Mokuai",
     name: "Mokuai",
-    component: () => import("../views/All/Mokuai.vue"),
+    component: () => import("../views/All/mokuai.vue"),
+  },
+  {
+    path: "/bofang",
+    name: "bofang",
+    component: () => import("../views/All/bofang.vue"),
   },
 ];
 

@@ -12,3 +12,9 @@ export function zhuce(data) {
 export function yonghu(data) {
     return get("/user/account", data);
 }
+export function gequ(data) {
+    return get("/song/url", data);
+}
+export function xiangqing(data) {
+    return get("/song/detail", data);
+}

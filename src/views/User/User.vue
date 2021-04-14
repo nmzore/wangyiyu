@@ -3,7 +3,7 @@
     <!-- 侧边栏 -->
     <div>
       <!-- <van-icon name="wap-nav" /> -->
-      <mokuai style="  padding: 10px;"></mokuai>
+      <mokuai style=" padding: 10px;"></mokuai>
     </div>
     <!-- 用户信息 -->
     <div class="user">
@@ -40,8 +40,11 @@
     <div class="guide">
       <div>
         <van-grid square :border="false">
-          <van-grid-item icon="music" text="本地下载" />
-          <van-grid-item icon="invition" text="云盘" />
+          <van-grid-item
+            icon="music"
+            text="本地下载"
+          />
+          <van-grid-item icon="invition" text="云盘"/>
           <van-grid-item icon="gift-card" text="已购" />
           <van-grid-item icon="play-circle" text="音乐播放" />
           <van-grid-item icon="friends" text="我的好友" />
@@ -148,13 +151,15 @@
         <p>飙升榜</p>
       </div>
     </div>
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 <script>
-import mokuai from "../../components/All/mokuai";
 export default {
+  
   data() {
     return {
+     
       activeName: "a",
       content: [
         { text: "最近一年收藏的古风歌曲" },
@@ -165,10 +170,13 @@ export default {
   },
   methods: {
     onClickIcon() {},
+    dianji(id){
+      this.ids=id
+    },
   },
-  components: {
-    mokuai,
+  created:{
   },
+ 
 };
 </script>
 
@@ -408,5 +416,4 @@ export default {
   color: #616161;
   margin-bottom: 10px;
 }
-
 </style>
