@@ -70,6 +70,14 @@ const routes = [
     },
   },
   {
+    path: "/likelist",
+    name: "Likelist",
+    component: () => import("../views/User/likelist/Likelist.vue"),
+    meta: {
+      showTabbar: false, // 不显底部导航
+    },
+  },
+  {
     path: "/SouSuo",
     name: "SouSuo",
     component: () => import("../views/Kege/SouSuo.vue"),
@@ -113,7 +121,12 @@ const routes = [
   {
     path: "/Mokuai",
     name: "Mokuai",
-    component: () => import("../views/All/Mokuai.vue"),
+    component: () => import("../views/All/mokuai.vue"),
+  },
+  {
+    path: "/bofang",
+    name: "bofang",
+    component: () => import("../views/All/bofang.vue"),
   },
 ];
 

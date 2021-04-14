@@ -3,22 +3,21 @@
     <!-- 侧边栏 -->
     <div>
       <!-- <van-icon name="wap-nav" /> -->
-      <mokuai style="  padding: 10px;"></mokuai>
+<<<<<<< HEAD
+      <mokuai style=" padding: 10px;"></mokuai>
+=======
+      <mokuai style="padding: 10px"></mokuai>
+>>>>>>> 1eb6d7351c287d22d2143a4a43e7af7473141dec
     </div>
     <!-- 用户信息 -->
     <div class="user">
       <div class="userinfo">
         <div class="img">
-          <van-image
-            round
-            width="40px"
-            height="40px"
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
-          />
+          <van-image round width="40px" height="40px" :src="url" />
         </div>
         <div class="right">
-          <p>Mr.Json</p>
-          <div class="tab">
+          <p @click="nowlogin">{{ Namea }}</p>
+          <div class="tab" v-if="vip">
             <van-tag class="tab-1" color="#919191" :round="true"
               ><i>Vip续费</i></van-tag
             >
@@ -40,8 +39,11 @@
     <div class="guide">
       <div>
         <van-grid square :border="false">
-          <van-grid-item icon="music" text="本地下载" />
-          <van-grid-item icon="invition" text="云盘" />
+          <van-grid-item
+            icon="music"
+            text="本地下载"
+          />
+          <van-grid-item icon="invition" text="云盘"/>
           <van-grid-item icon="gift-card" text="已购" />
           <van-grid-item icon="play-circle" text="音乐播放" />
           <van-grid-item icon="friends" text="我的好友" />
@@ -55,18 +57,19 @@
     <div class="ilike">
       <div class="ilike-left">
         <div>
-          <van-image
-            width="65px"
-            height="65px"
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
-          />
+          <van-image width="65px" height="65px" :src="url2" />
         </div>
         <div class="left-text">
           <h6>我喜欢的音乐</h6>
-          <van-icon name="passed" /><span>108首，已下载81首</span>
+          <van-icon name="passed" /><i
+            ><span>{{ num1 }}</span
+            >首，已下载<span>{{ num2 }}</span
+            >首</i
+          >
         </div>
       </div>
-      <div class="ilike-right">心动模式</div>
+      <div class="ilike-right" @click="golikelist">心动模式</div>
+      <router-view></router-view>
     </div>
     <!-- 标签导航 -->
     <div class="tabnav">
@@ -148,25 +151,92 @@
         <p>飙升榜</p>
       </div>
     </div>
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 <script>
 import mokuai from "../../components/All/mokuai";
+import { likelist, yonghu, songdetail } from "../../services/auto";
+
 export default {
+  
   data() {
     return {
+     
       activeName: "a",
       content: [
         { text: "最近一年收藏的古风歌曲" },
         { text: "最近一年收藏的古风歌曲" },
         { text: "最近一年收藏的古风歌曲" },
       ],
+      Namea: "立即登录",
+      url: "https://img01.yzcdn.cn/vant/cat.jpeg",
+      vip: false,
+      num1: 0,
+      num2: 0,
+      uid: "",
+      url2: "https://img01.yzcdn.cn/vant/cat.jpeg",
+      idss: [],
     };
   },
-  methods: {
-    onClickIcon() {},
+  async created() {
+    const res = await yonghu({
+      cookie: localStorage.cookie,
+    });
+    console.log(res);
+    if (res.code == 200) {
+      this.Namea = res.profile.nickname;
+      this.url = res.profile.avatarUrl;
+      console.log(localStorage.cookie);
+      if (localStorage.cookie) {
+        this.vip = true;
+      } else {
+        this.vip = false;
+      }
+    }
+    console.log(res.account.id);
+    this.uid = res.account.id;
+    console.log(this.uid);
+    const res1 = await likelist({
+      uid: this.uid,
+      cookie: localStorage.cookie,
+    });
+    console.log(res1);
+    console.log(res1.ids.length);
+    this.num1 = res1.ids.length;
+    this.idss = res1.ids;
+    const ids = this.idss[0];
+    console.log(this.idss);
+    console.log(ids);
+    const res2 = await songdetail({
+      ids: ids,
+      cookie: localStorage.cookie,
+    });
+    console.log(res2);
+    console.log(res2.songs[0].al.picUrl);
+    this.url2 = res2.songs[0].al.picUrl;
   },
-  components: {
+  methods: {
+    nowlogin() {
+      if (localStorage.cookie != null) {
+        console.log(1);
+      } else {
+        this.$router.push({
+          path: "Login",
+        });
+      }
+    },
+    golikelist() {
+      this.$router.push({
+        path: "/likelist",
+        query: {
+          uid: this.uid,
+          url: this.url,
+        },
+      });
+    },
+  },
+ components: {
     mokuai,
   },
 };
@@ -408,5 +478,4 @@ export default {
   color: #616161;
   margin-bottom: 10px;
 }
-
 </style>

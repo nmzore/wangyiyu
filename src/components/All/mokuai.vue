@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <van-button is-link @click="showPopup">展示弹出层</van-button> -->
-    <van-icon name="wap-nav"  is-link @click="showPopup" style="padding: 10px;"  />
+    <van-icon name="wap-nav" is-link @click="showPopup" style="padding: 10px" />
     <van-popup
       v-model="show"
       position="left"
@@ -78,7 +78,6 @@ export default {
   data() {
     return {
       show: false,
-      Deng: true,
       Namea: "未登录",
       url: "https://s1.music.126.net/style/favicon.ico?v20180307",
       banners: [],
@@ -88,9 +87,8 @@ export default {
     const res = await yonghu({
       cookie: localStorage.cookie,
     });
-    console.log(res);
+
     if (res.code == 200) {
-      this.Deng = !this.Deng;
       this.Namea = res.profile.nickname;
       this.url = res.profile.avatarUrl;
     } else {
@@ -98,8 +96,6 @@ export default {
         name: "Login",
       });
     }
-    console.log(this.banners);
-    console.log(this.banners.userId);
   },
 
   methods: {
@@ -107,14 +103,13 @@ export default {
       this.show = true;
     },
     tiaozhuan() {
-      if(localStorage.token != null){
-      console.log(1)
-      }else{
-      this.$router.push({
-        name: "Login",
-      });
+      if (localStorage.token != null) {
+        console.log(1);
+      } else {
+        this.$router.push({
+          name: "Login",
+        });
       }
-     
     },
   },
 };
@@ -215,5 +210,4 @@ export default {
   border-radius: 20px;
   margin: 5px 10px;
 }
-
 </style>

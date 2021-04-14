@@ -78,7 +78,6 @@ export default {
   data() {
     return {
       show: false,
-      Deng: true,
       Namea: "未登录",
       url: "https://s1.music.126.net/style/favicon.ico?v20180307",
       banners: [],
@@ -88,9 +87,7 @@ export default {
     const res = await yonghu({
       cookie: localStorage.cookie,
     });
-    console.log(res);
     if (res.code == 200) {
-      this.Deng = !this.Deng;
       this.Namea = res.profile.nickname;
       this.url = res.profile.avatarUrl;
     } else {
@@ -98,8 +95,6 @@ export default {
         name: "Login",
       });
     }
-    console.log(this.banners);
-    console.log(this.banners.userId);
   },
 
   methods: {
