@@ -1,8 +1,9 @@
 <template>
   <div class="mine mine-style">
     <!-- 侧边栏 -->
-    <div class="nav">
-      <van-icon name="wap-nav" />
+    <div>
+      <!-- <van-icon name="wap-nav" /> -->
+      <mokuai style="  padding: 10px;"></mokuai>
     </div>
     <!-- 用户信息 -->
     <div class="user">
@@ -150,6 +151,7 @@
   </div>
 </template>
 <script>
+import mokuai from "../../components/All/mokuai";
 export default {
   data() {
     return {
@@ -164,7 +166,9 @@ export default {
   methods: {
     onClickIcon() {},
   },
-  components: {},
+  components: {
+    mokuai,
+  },
 };
 </script>
 
@@ -378,9 +382,7 @@ export default {
   text-align: center;
   line-height: 80px;
 }
-.mine-style .helper {
-  /* min-height: 230px; */
-}
+
 .mine-style .helper-content p {
   width: 85%;
   height: 30px;
@@ -406,4 +408,5 @@ export default {
   color: #616161;
   margin-bottom: 10px;
 }
+
 </style>
