@@ -1,13 +1,24 @@
 <template>
   <div class="classify">
-   <clstit></clstit>
+   <Clstit></Clstit>
+   <Clscontent></Clscontent>
+   <Msclover></Msclover>
+   <Mslover></Mslover>
   </div>
 </template>
 
 <script>
 import Clstit from './Clstit.vue'
+import Clscontent from './Clscontent.vue'
+import Mslover from './Mslover.vue'
+import Msclover from './Mslover.vue'
 export default {
-	components: { Clstit },
+   data(){
+    return{
+      
+    };
+  },
+	components: { Clstit,Clscontent ,Msclover,Mslover},
 
 }
 </script>

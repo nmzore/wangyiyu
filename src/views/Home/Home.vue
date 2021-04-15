@@ -27,14 +27,14 @@
     <!-- 导航栏 -->
     <div class="nav">
       <van-grid :gutter="10" :border="false">
-        <van-grid-item icon="photo-o" text="推荐" />
-        <van-grid-item icon="photo-o" text="FM" />
-        <van-grid-item icon="photo-o" text="歌单" />
-        <van-grid-item icon="photo-o" text="排行" />
-        <van-grid-item icon="photo-o" text="直播" />
-        <van-grid-item icon="photo-o" text="专辑" />
-        <van-grid-item icon="photo-o" text="唱聊" />
-        <van-grid-item icon="photo-o" text="游戏" />
+        <van-grid-item icon="shop-collect-o" text="推荐" />
+        <van-grid-item icon="video-o" text="FM" />
+        <van-grid-item icon="service-o" text="歌单" />
+        <van-grid-item icon="bar-chart-o" text="排行" />
+        <van-grid-item icon="tv-o" text="直播" />
+        <van-grid-item icon="aim" text="专辑" />
+        <van-grid-item icon="bullhorn-o" text="唱聊" />
+        <van-grid-item icon="gem-o" text="游戏" />
       </van-grid>
     </div>
 
@@ -42,7 +42,7 @@
     <div class="tj">
       <div class="tj-top">
         <h3>推荐歌单</h3>
-        <button>更多 &gt;</button>
+        <button @click="jumpsquare">更多 &gt;</button>
       </div>
       <div class="tj-bot">
         <van-grid
@@ -53,7 +53,7 @@
           v-for="item in gds"
           :key="item.id"
         >
-          <van-grid-item>
+          <van-grid-item @click="godetail(item.id)">
             <van-image :src="item.picUrl" />
             <p>{{ item.name }}</p>
           </van-grid-item>
@@ -424,6 +424,8 @@ export default {
   name: "Home",
   data() {
     return {
+      id: [],
+      ids: "",
       active: 0,
       banners: [],
       gds: [],
@@ -453,7 +455,23 @@ export default {
     mokuai,
   },
   mounted() {},
-  methods: {},
+  methods: {
+    //更多按钮跳转到歌单广场
+    jumpsquare() {
+      this.$router.push({
+        path: "/square",
+      });
+    },
+    //跳转到歌单详情页
+    godetail(ids) {
+      this.$router.push({
+        path: "/songdetail",
+        query: {
+          ids: ids,
+        },
+      });
+    },
+  },
   created() {
     //轮播图请求
     axios.get("http://localhost:3000/banner").then((res) => {
@@ -543,6 +561,9 @@ export default {
 }
 .nav .van-grid-item__content--center {
   width: 60px;
+}
+.nav .van-grid-item {
+  color: rgb(248, 84, 84);
 }
 
 /* 推荐歌单 */
