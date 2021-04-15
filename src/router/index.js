@@ -4,8 +4,7 @@ import Home from "../views/Home/Home.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "Home",
     component: Home,
@@ -81,7 +80,6 @@ const routes = [
     path: "/SouSuo",
     name: "SouSuo",
     component: () => import("../views/Kege/SouSuo.vue"),
-<<<<<<< HEAD
   }, {
     path: "/wodekge",
     name: "WoDeKGe",
@@ -90,30 +88,12 @@ const routes = [
     path: "quchangge",
     name: "QuChGe",
     component: () => import("../views/Kege/QuChGe.vue"),
-=======
-    meta: {
-      showTabbar: true,
-    },
->>>>>>> 659e9acb342f092a487d3f8f259a6eb329ca785a
   },
   {
     path: "/Kege",
     name: "Kege",
     component: () => import("../views/Kege/Kege.vue"),
-<<<<<<< HEAD
     children: [{
-=======
-    meta: {
-      showTabbar: true,
-    },
-    children: [
-      {
-        path: "quchangge",
-        name: "QuChGe",
-        component: () => import("../views/Kege/Kge/QuChGe.vue"),
-      },
-      {
->>>>>>> 659e9acb342f092a487d3f8f259a6eb329ca785a
         path: "guangchang",
         name: "GuangChang",
         component: () => import("../views/Kege/Kge/GuangChang.vue"),

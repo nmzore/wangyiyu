@@ -63,7 +63,7 @@
 
 <script>
 import axios from "axios";
-import { xiangchangs } from "../../services/KeGe/TuiJan";
+// import { xiangchangs } from "../../services/KeGe/TuiJan";
 export default {
   data() {
     return {
