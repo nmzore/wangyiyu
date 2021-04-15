@@ -25,6 +25,24 @@ export function xiangchangList(data) {
 export function diangeList(data) {
   return get('user/playlist', data)
 }
+// 聊天室
+// user/playlist?uid=32953014
+
+export function liaotianList(data) {
+  return get('user/playlist?uid=32953014', data)
+}
+// 欢乐K歌接口
+export function huanleList(data) {
+  return get('mv/all', data)
+}
+//推荐 /top/artists?offset=0&limit=30
+export function tuijianerList(data) {
+  return get('/top/artists?offset=0&limit=30', data)
+}
+// 获取   http://localhost:3000/event  threadId 参数
+export function huoquList() {
+  return get('/event')
+}
 // export function loadProducts(page = 1, product_category = "") {
 //   return get("/api/v1/products", {
 //     page,

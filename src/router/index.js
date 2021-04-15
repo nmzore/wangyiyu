@@ -88,21 +88,34 @@ const routes = [{
     path: "quchangge",
     name: "QuChGe",
     component: () => import("../views/Kege/QuChGe.vue"),
+    meta: {
+      showTabbar: true,
+    },
   },
   {
     path: "/Kege",
     name: "Kege",
     component: () => import("../views/Kege/Kege.vue"),
+    meta: {
+      showTabbar: true,
+    },
     children: [{
         path: "guangchang",
         name: "GuangChang",
         component: () => import("../views/Kege/Kge/GuangChang.vue"),
+        meta: {
+          showTabbar: true,
+        },
       },
       {
         path: "gefang",
         name: "GeFang",
         component: () => import("../views/Kege/Kge/GeFang.vue"),
+        meta: {
+          showTabbar: true,
+        },
       },
+
     ],
   },
   {

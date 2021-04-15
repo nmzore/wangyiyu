@@ -44,29 +44,31 @@
     <div id="hy_hang">
       <van-tabs class="hy_hang" v-model="activeName">
         <van-tab title="好友" name="a">
-          <!-- 好友  接口内容引入 -->
-          <!-- <div class="haoyou_v">
-            <div class="item" v-for="item in lunbos" :key="item._id">
-              <img :src="item.al.picUrl" alt="item.name" />
-              <h4>{{ item.al.name }}</h4>
-            </div>
-            <i class="zw"></i>
-            <i class="zw"></i>
-            <i class="zw"></i>
-            <i class="zw"></i>
-          </div>-->
+          <div class="hechang_bottom">
+            <img src="../../../assets/kk.png" alt />
+            <h4>这条街空荡荡的，快去加些好友吧</h4>
+          </div>
         </van-tab>
-        <van-tab title="推荐" name="b">
-          <div class="list">
-            <div class="item" v-for="item in tuijians" :key="item._id">
-              <img :src="item.coverImgUrl" alt="item.name" />
+        <van-tab title="歌手" name="b">
+          <!-- <div class="list2">
+                  <div class="item list2_1" v-for="item in dianges" :key="item._id">
+                    <img :src="item.al.picUrl" alt="item.name" />
+                    <h4>{{ item.name }}</h4>
+                    <p class="p1">{{ item.name }}</p>
+                    <p class="p2">演唱</p>
+          </div>-->
+          <div class="list2">
+            <div class="item list2_1" v-for="item in tuijianers" :key="item._id">
+              <img :src="item.picUrl" alt="item.name" />
               <h4>{{ item.name }}</h4>
+              <p class="p1">演唱人数：{{item.musicSize}}</p>
+              <p class="p2" style="flat:right">演唱</p>
             </div>
             <i class="zw"></i>
             <i class="zw"></i>
             <i class="zw"></i>
             <i class="zw"></i>
-            <button class="btn-loadmore" @click="loadMore">加载更多</button>
+            <!-- <button class="btn-loadmore" @click="loadMore">加载更多</button> -->
           </div>
         </van-tab>
         <van-tab title="古风" name="c">
@@ -89,8 +91,13 @@
 </template>
 
 <script>
+// huoquList
 import axios from "axios";
-import { haoyouList, tuijianList } from "../../../services/KeGe/TuiJan.js";
+import {
+  haoyouList,
+  tuijianList,
+  tuijianerList
+} from "../../../services/KeGe/TuiJan.js";
 export default {
   data() {
     return {
@@ -98,7 +105,8 @@ export default {
       activeName: "a",
       tuijians: [],
       gufengs: [],
-      lunbos: []
+      lunbos: [],
+      tuijianers: []
     };
   },
   async created() {
@@ -112,6 +120,17 @@ export default {
       cookie: localStorage.cookie
     });
     console.log(tuijian);
+    // 推荐
+    const tuijianer = await tuijianerList({
+      cookie: localStorage.cookie
+    });
+    console.log(tuijianer);
+    this.tuijianers = tuijianer.artists;
+    // // 获取 参数
+    // const huoqu = await huoquList({
+    //   cookie: localStorage.cookie
+    // });
+    // console.log(21333333333, huoqu);
 
     // /top/playlist/highquality 古风
     axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
@@ -121,18 +140,8 @@ export default {
     });
   },
   methods: {
-    loadMore() {
-      // this.loadData();
-    },
-    // hyHandle() {},
-    //  async loadData() {
-    //   const res = await loadList(this.page, this.$route.query.c);
-    //   console.log(res);
-    //   this.tuijians = [...this.tuijians, ...res.tuijians];
-    // },
-    onChange() {
-      // Toast("当前 Swipe 索引：" + index);
-    }
+    loadMore() {},
+    onChange() {}
   }
 };
 </script>
@@ -308,5 +317,65 @@ b {
   width: 80%;
   background-color: #e83929;
   color: white;
+}
+/*  好友 */
+/* 合唱 内容样式 */
+.hechang_bottom {
+  margin: 0.1rem auto;
+  text-align: center;
+  color: rgb(66, 66, 66);
+  margin-left: 5rem;
+}
+.hechang_bottom h4 {
+  font-weight: 500;
+  margin-top: 1rem;
+
+  margin-bottom: 1rem;
+}
+.hechang_bottom h4 p {
+  margin-top: 1rem;
+}
+/*  */
+/* 推荐      */
+.list2 {
+  margin-top: -2rem;
+  margin-left: 2rem;
+}
+.list2 .list2_1 {
+  margin-top: 3rem;
+}
+.list2 .list2_1 img {
+  width: 5rem;
+  /* height: 4rem; */
+  border-radius: 0.5rem;
+}
+.list2 .list2_1 h4 {
+  margin-top: -4rem;
+  margin-left: 7rem;
+  font-weight: 600;
+}
+.list2 .list2_1 p {
+  width: 12rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  margin-left: 7rem;
+  margin-top: 1rem;
+}
+
+.list2 .list2_1 .p1 {
+  font-size: 0.16rem;
+}
+.list2 .list2_1 .p2 {
+  width: 4rem;
+  height: 2rem;
+  float: right;
+  margin-right: -3.7rem;
+  margin-top: -2.2rem;
+  text-align: center;
+  border: #e09a02 0.013333rem solid;
+  border-radius: 1rem;
+  line-height: 2rem;
 }
 </style>

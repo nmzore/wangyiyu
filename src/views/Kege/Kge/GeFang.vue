@@ -1,7 +1,8 @@
 <template>
   <div class="gefang">
     <van-row type="flex" justify="center" class="gf">
-      <van-col span="7" class="gf1">
+      <van-col span="7" class="gf1" v-if="show">
+        <van-popup position="bottom" :style="{ height: '30%' }" @click="show=!show">{{txt}}</van-popup>
         <b>创建歌房</b>
       </van-col>
       <van-col span="7" class="gf2">
@@ -14,61 +15,62 @@
         <van-tabs class="gf_hang" v-model="activeName" @click="hyHandle">
           <!-- 欢乐K歌               -->
           <van-tab title="欢乐KTV" name="a" style="width:10rem">
-            <!-- <div class="list1">
-              <div class="item list1_1" v-for="item in huanles" :key="item._id">
-                <img :src="item.coverImgUrl" alt="item.name" />
-                <h4>{{ item.name }}</h4>
-                <p>{{ item.description }}</p>
-              </div>
-              <i class="zw"></i>
-              <i class="zw"></i>
-              <i class="zw"></i>
-              <i class="zw"></i>
-              <button class="btn-loadmore" @click="loadMore">加载更多</button>
-            </div>-->
             <div id="list1">
               <van-grid :column-num="2" class="huanles">
                 <van-grid-item v-for="item in huanles" :key="item">
+                  <img :src="item.cover" alt="item.name" />
                   <h4>{{ item.name }}</h4>
-                  <img :src="item.coverImgUrl" alt="item.name" />
                 </van-grid-item>
               </van-grid>
             </div>
-            <!-- <van-grid :gutter="10">
-              <van-grid-item v-for="item in huanles" :key="item" class="huanle" column-num="2">
-                <h4>{{ item.name }}</h4>
-                <img :src="item.coverImgUrl" alt="item.name" />
-              </van-grid-item>
-            </van-grid>-->
+            <!-- <HearList></HearList> -->
           </van-tab>
-          <van-tab title="聊天室" name="b" style="width:10rem">内容 2</van-tab>
+          <van-tab title="聊天室" name="b" style="width:10rem">
+            <div id="list1">
+              <van-grid :column-num="2" class="huanles">
+                <van-grid-item v-for="item in liaotians" :key="item">
+                  <h4>{{ item.name }}</h4>
+                  <img :src="item.coverImgUrl" alt="item.cover" style="margin-top: 1rem;" />
+                </van-grid-item>
+              </van-grid>
+            </div>
+          </van-tab>
         </van-tabs>
       </div>
     </van-row>
-
-    <!-- <van-grid :gutter="10">
-          <van-grid-item v-for="value in 3" :key="value" icon="photo-o" text="文字" />
-    </van-grid>-->
   </div>
 </template>
 
 <script>
-import axios from "axios";
+// tuijianList
+import { liaotianList, huanleList } from "../../../services/KeGe/TuiJan";
+// import HearList from "../../../components/boke/HearList";
+// import axios from "axios";
 
 export default {
   data() {
     return {
       active: 2,
       activeName: "a",
-      huanles: []
+      huanles: [],
+      liaotians: [],
+      show: true,
+      txt: "创建歌房"
     };
   },
-  created() {
-    axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
-      console.log(res);
-      this.huanles = res.data.playlists;
-      // this.banners = res.data.banners;
+
+  async created() {
+    const huanle = await huanleList({
+      cookie: localStorage.cookie
     });
+    console.log(huanle);
+    this.huanles = huanle.data;
+    // ##########################33
+    const liaotian = await liaotianList({
+      cookie: localStorage.cookie
+    });
+    console.log(liaotian);
+    this.liaotians = liaotian.playlist;
   },
   methods: {
     hyHandle() {}
@@ -114,7 +116,7 @@ export default {
   border-radius: 0.4rem;
 }
 #gf_hang /deep/ {
-  width: 50%;
+  width: 40%;
   display: flex;
   flex: 1;
 
@@ -126,32 +128,30 @@ export default {
   height: 1rem;
   margin-left: 1rem;
 }
-#gf_hang /deep/ .gf_hang .van-tabs__line {
-  height: 0;
-  width: 0;
-}
-#gf_hang /deep/ .gf_hang .van-tab--active {
-  background: #fff6f6;
-  border-radius: 1.6rem;
-}
+
 /* 欢乐k歌     */
 .list1 {
-  background: #15f1f1;
   margin-top: 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: row;
 }
 .huanles /deep/ {
-  width: 24rem;
-  /* margin-left: 1rem; */
+  width: 20rem;
   border: none;
-  background: #ffffff;
-  margin: 10px 0;
+  margin: 0 auto;
 }
 .huanles img {
-  width: 6rem;
-  border-radius: 20rem;
-  background: #e20a0a;
+  width: 7rem;
+  border-radius: 1rem;
+}
+/*     欢乐k歌 */
+#list1 h4 {
+  width: 7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  margin-top: 1rem;
 }
 </style>
