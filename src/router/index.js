@@ -29,6 +29,14 @@ const routes = [{
     },
   },
   {
+    path: "/songdetail",
+    name: "Songdetail",
+    component: () => import("../views/songdetail/index.vue"),
+    meta: {
+      showTabbar: false, // 不显底部导航
+    },
+  },
+  {
     path: "/boke",
     name: "Boke",
     component: () => import("../views/Boke/Boke.vue"),
@@ -74,6 +82,14 @@ const routes = [{
     component: () => import("../views/User/User.vue"),
     meta: {
       showTabbar: true,
+    },
+  },
+  {
+    path: "/listdetail",
+    name: "Listdetail",
+    component: () => import("../views/User/listdetail/Listdetail.vue"),
+    meta: {
+      showTabbar: false,
     },
   },
   {
@@ -134,7 +150,6 @@ const routes = [{
       showTabbar: true,
     },
   },
-
 ];
 
 const router = new VueRouter({
