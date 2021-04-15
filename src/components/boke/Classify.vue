@@ -1,13 +1,20 @@
 <template>
   <div class="classify">
-   <clstit></clstit>
+   <Clstit></Clstit>
+   <Clscontent></Clscontent>
   </div>
 </template>
 
 <script>
 import Clstit from './Clstit.vue'
+import Clscontent from './Clscontent.vue'
 export default {
-	components: { Clstit },
+   data(){
+    return{
+      
+    };
+  },
+	components: { Clstit,Clscontent },
 
 }
 </script>
