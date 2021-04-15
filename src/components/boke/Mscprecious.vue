@@ -1,11 +1,10 @@
 <template>
-<div>
   <div class="musicstory">
     <div class="tit" >
       <div class="tj-top">
         <div style="display:inline-block">
-          <span style="font-weight:600;">音乐故事</span>
-          <span style="font-weight:600;">这有一个故事陪你听歌</span>
+          <span style="font-weight:600;">重磅呈现</span>
+          <span style="font-weight:600;">不容错过的宝藏播客</span>
         </div>  
         <button style="color:#000">更多 &gt;</button>
       </div>
@@ -26,7 +25,6 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -37,7 +35,7 @@ export default {
       gds:[],
     };
   },
-  components:{
+  method:{
 
   },
   created(){
@@ -45,7 +43,7 @@ export default {
     .get("http://localhost:3000/top/playlist",)
     .then((res) => {
       console.log(909,res)
-      this.gds = res.data.playlists.splice(6,8);
+      this.gds = res.data.playlists.splice(12,14);
     });
   }
 }

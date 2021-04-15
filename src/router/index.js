@@ -11,6 +11,14 @@ const routes = [{
     meta: {
       showTabbar: true,
     },
+},
+   {
+    path: "/cehua",
+    name: "Cehua",
+    component: () => import("../components/boke/Cehua.vue"),
+    meta: {
+      showTabbar: false, // 不显底部导航
+    },
   },
   {
     path: "/square",

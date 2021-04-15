@@ -42,17 +42,19 @@
           :key="item.id">
         <van-grid-item>
           <van-image :src="item.coverImgUrl" />
-          <p>{{ item.name }}</p>
+          <p>{{ item.name.slice(3,11) }}</p>
         </van-grid-item>
       </van-grid>
       </div>
     </div>
+    <Hearswipe></Hearswipe>
     <HearList></HearList>
   </div>
 </template>
 <script>
 import axios from "axios";
 import HearList from "./HearList"
+import Hearswipe from "./Hearswipe"
 export default {
   name:"Hear",
   data(){
@@ -64,6 +66,7 @@ export default {
   },
   components:{
     HearList,
+    Hearswipe,
   },
    created(){
     axios
@@ -77,7 +80,7 @@ export default {
     .get("http://localhost:3000/toplist/detail", { params: { limit:4 } })
     .then((res) => {
       // console.log(res)
-      this.lbss = res.data.list;
+      this.lbss = res.data.list.slice(5,11);
       this.lbss.length = 6;
     });
   },
@@ -152,8 +155,8 @@ export default {
 .mynav .van-grid-item p{
   width: 2.5rem;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
   font-size: 12px;
   color: rgb(117, 116, 116);
   line-height: 16px;
