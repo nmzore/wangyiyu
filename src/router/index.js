@@ -70,6 +70,14 @@ const routes = [
     },
   },
   {
+    path: "/listdetail",
+    name: "Listdetail",
+    component: () => import("../views/User/listdetail/Listdetail.vue"),
+    meta: {
+      showTabbar: false,
+    },
+  },
+  {
     path: "/likelist",
     name: "Likelist",
     component: () => import("../views/User/likelist/Likelist.vue"),

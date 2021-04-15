@@ -3,7 +3,8 @@
     <!-- top -->
     <div class="top">
       <div class="nav">
-        <van-nav-bar title="歌单" :border="false">
+        <van-nav-bar :border="false">
+          <template #title> 歌单 </template>
           <template #left>
             <van-icon
               name="arrow-left"
@@ -20,12 +21,11 @@
       </div>
       <!-- ilike -->
       <div class="ilike">
-        <van-image width="120px" height="120px" :src="url2" />
+        <van-image width="120px" height="120px" :src="url" />
         <div class="left-text">
-          <h6>我喜欢的音乐</h6>
+          <h6>{{ name }}</h6>
           <div class="userinfo">
-            <van-image round width="30px" height="30px" :src="url" />
-            <p>{{ name }}</p>
+            <p>{{ desc }}</p>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <p>
           <van-icon name="play-circle-o" color="red" size="28" />
           <i
-            >播放全部<span>({{ num1 }})</span></i
+            >播放全部<span>({{ num }})首</span></i
           >
         </p>
         <p>
@@ -45,7 +45,7 @@
         </p>
       </div>
       <div class="list-content">
-        <van-list v-for="(item, index) in list" :key="item.id">
+        <van-list v-for="(item, index) in lists" :key="item.id">
           <p>{{ index + 1 }}</p>
           <div class="listname">
             <span class="listname-top">{{ item.al.name }}</span>
@@ -57,7 +57,7 @@
           </div>
           <div class="listcontent-right">
             <van-icon name="video-o" size="22" />
-            <van-icon name="other-pay" @click="delatesong(item.id)" size="22" />
+            <van-icon name="other-pay" size="22" />
           </div>
         </van-list>
       </div>
@@ -66,69 +66,29 @@
 </template>
 
 <script>
-import { likelist, yonghu, songdetail } from "../../../services/auto";
+import { playlistdetail } from "../../../services/auto";
 export default {
-  props: {},
   data() {
     return {
-      url2: "https://img01.yzcdn.cn/vant/cat.jpeg",
-      name: "",
-      num1: "",
+      listid: "",
       url: "",
-      list: [],
-      id: "",
-      loading: false,
-      finished: false,
+      name: "",
+      desc: "",
+      num: "",
+      lists: [],
     };
   },
   computed: {},
-  async created() {
-    const res = await yonghu({
-      cookie: localStorage.cookie,
-    });
-    console.log(res);
-    if (res.code == 200) {
-      this.Namea = res.profile.nickname;
-      this.url = res.profile.avatarUrl;
-      console.log(localStorage.cookie);
-      if (localStorage.cookie) {
-        this.vip = true;
-      } else {
-        this.vip = false;
-      }
-    }
-    console.log(res.account.id);
-    console.log(res.profile.nickname);
-    this.name = res.profile.nickname;
-    this.uid = res.account.id;
-    console.log(this.uid);
-    const res1 = await likelist({
-      uid: this.uid,
-      cookie: localStorage.cookie,
-    });
-    console.log(res1);
-    this.id = res1.checkPoint;
-    console.log(this.id);
-    console.log(res1.ids.length);
-    this.num1 = res1.ids.length;
-    this.idss = res1.ids;
-    const ids = this.idss[0];
-    console.log(this.idss);
-    //console.log(ids);
-    const res2 = await songdetail({
-      ids: ids,
-      cookie: localStorage.cookie,
-    });
-    console.log(res2);
-    console.log(res2.songs[0].al.picUrl);
-    this.url2 = res2.songs[0].al.picUrl;
-    this.ilikelist();
-  },
+  created() {},
   mounted() {
-    console.log(this.$route.query.uid);
-    console.log(this.$route.query.url);
-    // this.name = this.$route.query.uid;
-    this.url = this.$route.query.url;
+    console.log(this.$route.query.listid);
+    const a = this.$route.query.listid;
+    this.listid = Number(a);
+    const id = this.listid;
+    //console.log(this.listid);
+    console.log(id);
+    //调用songlist函数，并把参数 id 传给她
+    this.songlist(id);
   },
   watch: {},
   methods: {
@@ -137,36 +97,19 @@ export default {
         path: "/User",
       });
     },
-    async ilikelist() {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      // setTimeout(() => {
-      for (let i = 0; i < this.idss.length; i++) {
-        console.log(i);
-        console.log(this.idss[i]);
-        const ids = this.idss[i];
-        const res3 = await songdetail({
-          ids: ids,
-          cookie: localStorage.cookie,
-        });
-        console.log(res3);
-        // this.list.push(this.list.length + 1);
-        this.list = this.list.concat(res3.songs); //结果放到list里面。
-        console.log(this.list);
-      }
+    //定一个songlist函数 并发起请求，
+    async songlist(id) {
+      const res = await playlistdetail({
+        id,
+      });
+      console.log(res); //获得 歌单列表详情数据；
+      this.name = res.playlist.name;
+      this.url = res.playlist.coverImgUrl;
+      this.desc = res.playlist.description;
+      this.num = res.playlist.tracks.length;
+      this.lists = this.lists.concat(res.playlist.tracks);
+      console.log(this.lists);
     },
-    //op: 从歌单增加单曲为 add, 删除为 del
-
-    //pid: 歌单 id tracks: 歌曲 id,可多个,用逗号隔开
-    // async delatesong(del, id) {
-    //   console.log(id);
-    //   const res4 = await playlisttracks({
-    //     op: del,
-    //     pid: this.id,
-    //     tracks: id,
-    //   });
-    //   console.log(res4);
-    // },
   },
   components: {},
 };
@@ -238,7 +181,8 @@ export default {
   align-items: center;
 }
 .userinfo p {
-  margin-left: 8px;
+  color: #ccc;
+  font-size: 11px;
 }
 /* list */
 .list .list-nav {
@@ -288,5 +232,8 @@ export default {
   position: absolute;
   top: 0;
   left: 300px;
+}
+.van-nav-bar__title {
+  color: #fff;
 }
 </style>

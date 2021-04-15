@@ -27,3 +27,23 @@ export function likelist(data) {
 export function songdetail(data) {
     return get("/song/detail",data)
 }
+//用户歌单
+export function userplaylist(data) {
+    return get("/user/playlist",data)
+}
+//收藏歌单
+export function albumsublist(data) {
+    return get("/album/sublist",data)
+}
+//热门歌单分类
+export function toplist(data) {
+    return get("/toplist",data)
+}
+//对歌单添加或删除歌曲
+export function playlisttracks(data) {
+    return get("/playlist/tracks",data)
+}
+//歌单详情
+export function playlistdetail(data) {
+    return get("/playlist/detail",data)
+}
