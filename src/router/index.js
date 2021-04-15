@@ -4,13 +4,20 @@ import Home from "../views/Home/Home.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "Home",
     component: Home,
     meta: {
       showTabbar: true,
+    },
+},
+   {
+    path: "/cehua",
+    name: "Cehua",
+    component: () => import("../components/boke/Cehua.vue"),
+    meta: {
+      showTabbar: false, // 不显底部导航
     },
   },
   {
@@ -89,6 +96,14 @@ const routes = [
     path: "/SouSuo",
     name: "SouSuo",
     component: () => import("../views/Kege/SouSuo.vue"),
+  }, {
+    path: "/wodekge",
+    name: "WoDeKGe",
+    component: () => import("../views/Kege/WoDeKe.vue"),
+  }, {
+    path: "quchangge",
+    name: "QuChGe",
+    component: () => import("../views/Kege/QuChGe.vue"),
     meta: {
       showTabbar: true,
     },
@@ -100,22 +115,23 @@ const routes = [
     meta: {
       showTabbar: true,
     },
-    children: [
-      {
-        path: "quchangge",
-        name: "QuChGe",
-        component: () => import("../views/Kege/Kge/QuChGe.vue"),
-      },
-      {
+    children: [{
         path: "guangchang",
         name: "GuangChang",
         component: () => import("../views/Kege/Kge/GuangChang.vue"),
+        meta: {
+          showTabbar: true,
+        },
       },
       {
         path: "gefang",
         name: "GeFang",
         component: () => import("../views/Kege/Kge/GeFang.vue"),
+        meta: {
+          showTabbar: true,
+        },
       },
+
     ],
   },
   {
