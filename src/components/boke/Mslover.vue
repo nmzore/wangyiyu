@@ -4,7 +4,7 @@
       <div class="tj-top">
         <div style="display:inline-block">
           <span style="font-weight:600;">声音恋人</span>
-          <span style="font-weight:600;">你的心动被我承包了</span>
+          <!-- <span style="font-weight:600;">你的心动被我承包了</span> -->
         </div>  
         <button style="color:#000">更多 &gt;</button>
       </div>
@@ -43,7 +43,7 @@ export default {
     .get("http://localhost:3000/top/playlist",)
     .then((res) => {
       console.log(909,res)
-      this.gds = res.data.playlists.splice(21,27);
+      this.gds = res.data.playlists;
     });
   }
 }
