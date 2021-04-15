@@ -1,29 +1,37 @@
-import { post,get } from "../utils/request";
+import { post, get } from "../utils/request";
 
 export function login(data) {
-    return post("/login/cellphone", data);
+  return post("/login/cellphone", data);
 }
 export function reg(data) {
-    return get("/register/cellphone", data);
+  return get("/register/cellphone", data);
 }
 export function zhuce(data) {
-    return get("/captcha/sent", data);
+  return get("/captcha/sent", data);
 }
 // 用户信息接口
 export function yonghu(data) {
-    return get("/user/account", data);
+  return get("/user/account", data);
 }
 export function gequ(data) {
-    return get("/song/url", data);
+  return get("/song/url", data);
 }
 export function xiangqing(data) {
-    return get("/song/detail", data);
+  return get("/song/detail", data);
 }
 // 我喜欢的音乐接口
 export function likelist(data) {
-    return get("/likelist", data);
+  return get("/likelist", data);
 }
 // 获取歌曲详情
 export function songdetail(data) {
-    return get("/song/detail",data)
+  return get("/song/detail", data);
+}
+// 获取歌曲详情
+export function souso(data) {
+  return get("/playlist/detail", data);
+}
+// 获取歌曲详情的音乐
+export function musicUrl(data) {
+  return get("/song/url", data);
 }
