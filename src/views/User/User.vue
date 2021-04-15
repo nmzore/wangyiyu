@@ -1,4 +1,5 @@
 <template>
+
   <div class="mine mine-style">
     <!-- 侧边栏 -->
     <div>
@@ -35,8 +36,12 @@
     <div class="guide">
       <div>
         <van-grid square :border="false">
-          <van-grid-item icon="music" text="本地下载" />
-          <van-grid-item icon="invition" text="云盘" />
+          <van-grid-item
+            icon="music"
+            text="本地下载"
+             @click="dianji(33894312)"
+          />
+          <van-grid-item icon="invition" text="云盘"  @click="dianji(1804320463)"/>
           <van-grid-item icon="gift-card" text="已购" />
           <van-grid-item icon="play-circle" text="音乐播放" />
           <van-grid-item icon="friends" text="我的好友" />
@@ -151,22 +156,25 @@
         >更多推荐歌单></van-button
       >
     </div>
-    <!-- <bofang :inputName="ids"></bofang> -->
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 <script>
 import mokuai from "../../components/All/mokuai";
-import {
-  likelist,
-  yonghu,
-  songdetail,
-  userplaylist,
-  toplist,
-} from "../../services/auto";
+import bofang from "../../components/All/bofang";
+import { likelist, yonghu, songdetail,userplaylist,
+  toplist, } from "../../services/auto";
 
 export default {
   data() {
     return {
+      ids:'',
+      activeName: "a",
+      content: [
+        { text: "最近一年收藏的古风歌曲" },
+        { text: "最近一年收藏的古风歌曲" },
+        { text: "最近一年收藏的古风歌曲" },
+      ],
       Namea: "立即登录",
       url: "https://img01.yzcdn.cn/vant/cat.jpeg",
       vip: false,
@@ -178,7 +186,6 @@ export default {
       num3: "",
       list: [],
       list2: [],
-      ids: "",
       id: "",
       listid: "",
       flag: false,
@@ -248,6 +255,9 @@ export default {
     this.list2 = this.list2.concat(arr.slice(0, 6));
   },
   methods: {
+    dianji(ids){
+      this.ids=ids
+    },
     nowlogin() {
       if (localStorage.cookie != null) {
         console.log(1);
@@ -294,6 +304,7 @@ export default {
   },
   components: {
     mokuai,
+    bofang
   },
 };
 </script>

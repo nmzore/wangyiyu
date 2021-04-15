@@ -27,6 +27,14 @@ export function likelist(data) {
 export function songdetail(data) {
   return get("/song/detail", data);
 }
+<<<<<<< HEAD
+export function chaxun(data) {
+    return get("/cloudsearch",data)
+}
+export function ree(data) {
+    return get("/cloudsearch",data)
+}
+=======
 // 获取歌曲详情
 export function souso(data) {
   return get("/playlist/detail", data);
@@ -55,3 +63,4 @@ export function playlisttracks(data) {
 export function playlistdetail(data) {
     return get("/playlist/detail",data)
 }
+>>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04

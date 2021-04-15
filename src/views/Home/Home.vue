@@ -27,6 +27,16 @@
     <!-- 导航栏 -->
     <div class="nav">
       <van-grid :gutter="10" :border="false">
+<<<<<<< HEAD
+        <van-grid-item icon="photo-o" text="推荐"  @click="dianji(33894312)"/>
+        <van-grid-item icon="photo-o" text="FM" />
+        <van-grid-item icon="photo-o" text="歌单" />
+        <van-grid-item icon="photo-o" text="排行" />
+        <van-grid-item icon="photo-o" text="直播" />
+        <van-grid-item icon="photo-o" text="专辑" />
+        <van-grid-item icon="photo-o" text="唱聊" />
+        <van-grid-item icon="photo-o" text="游戏" />
+=======
         <van-grid-item icon="shop-collect-o" text="推荐" />
         <van-grid-item icon="video-o" text="FM" />
         <van-grid-item icon="service-o" text="歌单" />
@@ -35,6 +45,7 @@
         <van-grid-item icon="aim" text="专辑" />
         <van-grid-item icon="bullhorn-o" text="唱聊" />
         <van-grid-item icon="gem-o" text="游戏" />
+>>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
       </van-grid>
     </div>
 
@@ -413,19 +424,25 @@
         <button>自定义排序</button>
       </div>
     </div>
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import bofang from "../../components/All/bofang";
 import mokuai from "../../components/All/mokuai";
 // import { get } from "../../utils/request";
 export default {
   name: "Home",
   data() {
     return {
+<<<<<<< HEAD
+      ids:'',
+=======
       id: [],
       ids: "",
+>>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
       active: 0,
       banners: [],
       gds: [],
@@ -453,9 +470,14 @@ export default {
   },
   components: {
     mokuai,
+    bofang
   },
   mounted() {},
   methods: {
+<<<<<<< HEAD
+    dianji(ids){
+      this.ids=ids
+=======
     //更多按钮跳转到歌单广场
     jumpsquare() {
       this.$router.push({
@@ -470,6 +492,7 @@ export default {
           ids: ids,
         },
       });
+>>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
     },
   },
   created() {
