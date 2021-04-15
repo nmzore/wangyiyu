@@ -22,6 +22,7 @@
                   <h4>{{ item.name }}</h4>
                 </van-grid-item>
               </van-grid>
+              <div class="height:5rem"></div>
             </div>
             <!-- <HearList></HearList> -->
           </van-tab>
@@ -34,6 +35,7 @@
                 </van-grid-item>
               </van-grid>
             </div>
+            <!-- <div class="height:5rem"></div> -->
           </van-tab>
         </van-tabs>
       </div>
@@ -116,7 +118,7 @@ export default {
   border-radius: 0.4rem;
 }
 #gf_hang /deep/ {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex: 1;
 
@@ -127,14 +129,16 @@ export default {
   color: rgb(199, 199, 199);
   height: 1rem;
   margin-left: 1rem;
+  /* background: #000000; */
 }
 
 /* 欢乐k歌     */
 .list1 {
   margin-top: 1rem;
+  /* background: #000000; */
 }
 .huanles /deep/ {
-  width: 20rem;
+  width: 23rem;
   border: none;
   margin: 0 auto;
 }

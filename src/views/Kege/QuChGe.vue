@@ -16,7 +16,7 @@
         <!-- 猜你想唱   v-for="item in xaingchangs" :key="item"-->
         <van-tab title="猜你想唱" name="a">
           <div class="list1">
-            <div class="item list1_1" v-for="item in xiangchangs" :key="item._id">
+            <div class="item list1_1" v-for="item in cainis" :key="item._id">
               <img :src="item.al.picUrl" alt="item.name" />
               <h4>{{ item.al.name }}</h4>
               <p class="p1">{{ item.name }}</p>
@@ -26,7 +26,7 @@
             <i class="zw"></i>
             <i class="zw"></i>
             <i class="zw"></i>
-            <button class="btn-loadmore" @click="loadMore">加载更多</button>
+            <!-- <button class="btn-loadmore" @click="loadMore">加载更多</button> -->
           </div>
         </van-tab>
         <!-- 热门榜单 -->
@@ -51,7 +51,7 @@
               <!-- 合唱热榜 -->
               <van-tab title="合唱热榜">
                 <div class="list2">
-                  <div class="item list2_1" v-for="item in dianges" :key="item._id">
+                  <div class="item list2_1" v-for="item in hechangs" :key="item._id">
                     <img :src="item.al.picUrl" alt="item.name" />
                     <h4>{{ item.name }}</h4>
                     <p class="p1">{{ item.name }}</p>
@@ -67,7 +67,7 @@
               <!-- 70后热榜 -->
               <van-tab title="70后热榜">
                 <div class="list2">
-                  <div class="item list2_1" v-for="item in dianges" :key="item._id">
+                  <div class="item list2_1" v-for="item in qilings" :key="item._id">
                     <img :src="item.al.picUrl" alt="item.name" />
                     <h4>{{ item.name }}</h4>
                     <p class="p1">{{ item.name }}</p>
@@ -104,10 +104,11 @@ export default {
       value: "",
       active: 2,
       activeName: "a",
-      tuijians: [],
-      gufengs: [],
-      xiangchangs: [],
-      dianges: []
+
+      cainis: [],
+      dianges: [],
+      hechangs: [],
+      qilings: []
     };
   },
 
@@ -116,13 +117,16 @@ export default {
       cookie: localStorage.cookie
     });
     console.log(xiangchang);
-    this.xiangchangs = xiangchang.data.dailySongs;
-    // 点歌榜
-    // const diange = await diangeList({
-    //   cookie: localStorage.cookie
-    // });
-    // console.log(diange);
-    this.dianges = xiangchang.data.dailySongs;
+    this.cainis = xiangchang.data.dailySongs;
+    this.dianges = xiangchang.data.dailySongs.splice(6, 30);
+    const hechang = await xiangchangList({
+      cookie: localStorage.cookie
+    });
+    this.hechangs = hechang.data.dailySongs.splice(12, 30);
+    const qiling = await xiangchangList({
+      cookie: localStorage.cookie
+    });
+    this.qilings = qiling.data.dailySongs.splice(19, 30);
   },
   methods: {
     search() {},
@@ -170,7 +174,7 @@ span {
 }
 .ipt {
   margin-left: 1rem;
-  width: 21rem;
+  width: 80%;
 }
 /* 选项卡样式 */
 i {
@@ -318,6 +322,7 @@ b {
   border-radius: 0.5rem;
 }
 .list2 .list2_1 h4 {
+  font-size: 0.8rem;
   margin-top: -4rem;
   margin-left: 5rem;
   font-weight: 600;

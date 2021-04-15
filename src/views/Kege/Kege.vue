@@ -5,7 +5,7 @@
         <template #title>
           <van-icon name="wap-nav" size="26" />
         </template>
-        内容4
+        <!-- 内容4 -->
       </van-tab>
       <van-tab>
         <!-- @click="GuangChangHandle" :to="{ name: 'GuangChang' }" -->

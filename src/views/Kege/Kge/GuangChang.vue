@@ -69,22 +69,41 @@
             <i class="zw"></i>
             <i class="zw"></i>
             <!-- <button class="btn-loadmore" @click="loadMore">加载更多</button> -->
+            <div style="height:6rem"></div>
           </div>
         </van-tab>
         <van-tab title="古风" name="c">
           <div class="list2">
-            <div class="item" v-for="item in gufengs" :key="item._id">
-              <img :src="item.coverImgUrl" alt="item.name" />
-              <h4>{{ item.name }}</h4>
+            <div class="item list2_1" v-for="item in gufengs" :key="item._id">
+              <img :src="item.al.picUrl" alt="item.name" />
+              <h4 style="font-size:0.5rem;margin-left:6rem;color:black">{{ item.al.name }}</h4>
+              <p class="p1">{{item.ar.name}}</p>
+              <p class="p2" style="flat:right">演唱</p>
             </div>
             <i class="zw"></i>
             <i class="zw"></i>
             <i class="zw"></i>
             <i class="zw"></i>
-            <button class="btn-loadmore" @click="loadMore">加载更多</button>
+            <!-- <button class="btn-loadmore" @click="loadMore">加载更多</button> -->
+            <div style="height:6rem"></div>
           </div>
         </van-tab>
-        <van-tab title="说唱" name="d">内容 4</van-tab>
+        <van-tab title="说唱" name="d">
+          <div class="list2">
+            <div class="item list2_1" v-for="item in shuochangs" :key="item._id">
+              <img :src="item.al.picUrl" alt="item.name" />
+              <h4 style="font-size:0.5rem;margin-left:6rem;color:black">{{ item.al.name }}</h4>
+              <p class="p1">{{item.ar.name}}</p>
+              <p class="p2" style="flat:right">演唱</p>
+            </div>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <!-- <button class="btn-loadmore" @click="loadMore">加载更多</button> -->
+            <div style="height:6rem"></div>
+          </div>
+        </van-tab>
       </van-tabs>
     </div>
   </div>
@@ -92,7 +111,7 @@
 
 <script>
 // huoquList
-import axios from "axios";
+// import axios from "axios";
 import {
   haoyouList,
   tuijianList,
@@ -106,7 +125,8 @@ export default {
       tuijians: [],
       gufengs: [],
       lunbos: [],
-      tuijianers: []
+      tuijianers: [],
+      shuochangs: []
     };
   },
   async created() {
@@ -133,11 +153,22 @@ export default {
     // console.log(21333333333, huoqu);
 
     // /top/playlist/highquality 古风
-    axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
-      console.log(res);
-      this.gufengs = res.data.playlists;
-      // this.banners = res.data.banners;
+    const gufeng = await haoyouList({
+      cookie: localStorage.cookie
     });
+    console.log(gufeng);
+    this.gufengs = gufeng.data.dailySongs.splice(6, 30);
+    // 说唱
+    const shuochang = await haoyouList({
+      cookie: localStorage.cookie
+    });
+    console.log(shuochang);
+    this.shuochangs = shuochang.data.dailySongs.splice(15, 32);
+    // axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
+    //   console.log(res);
+    //   this.gufengs = res.data.playlists.splice(10, 30);
+    //   // this.banners = res.data.banners;
+    // });
   },
   methods: {
     loadMore() {},
@@ -371,7 +402,7 @@ b {
   width: 4rem;
   height: 2rem;
   float: right;
-  margin-right: -3.7rem;
+  margin-right: -4rem;
   margin-top: -2.2rem;
   text-align: center;
   border: #e09a02 0.013333rem solid;
