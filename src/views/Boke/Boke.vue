@@ -1,7 +1,7 @@
 <template>
   <div class="boke">
     <van-tabs v-model="activeName">
-        <van-tab  name="a">
+        <van-tab name="a">
             <template  #title >
               <van-icon name="wap-nav" size="26" />
             </template>
