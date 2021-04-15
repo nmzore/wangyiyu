@@ -42,12 +42,13 @@ export default {
   data() {
     return {
       // active: 0,
-      isShowNav: true,
+      isShowNav: true
     };
   },
   components: {
   },
-};
+  }
+
 </script>
 <style>
 html,

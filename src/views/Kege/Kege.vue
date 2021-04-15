@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-tabs v-model="active" route>
+    <van-tabs v-model="active" route class="zong">
       <van-tab>
         <template #title>
           <van-icon name="wap-nav" size="26" />
@@ -9,17 +9,15 @@
       </van-tab>
       <van-tab>
         <!-- @click="GuangChangHandle" :to="{ name: 'GuangChang' }" -->
-        <template #title >
+        <template #title>
           <router-link :to="{ name: 'GuangChang' }">广场</router-link>
-          
         </template>
-
       </van-tab>
       <van-tab>
         <template #title>
-        <router-link :to="{ name: 'GeFang' }">
-          <h3 style="color:black">歌房</h3>
-   </router-link>
+          <router-link :to="{ name: 'GeFang' }">
+            <h3 style="color:black">歌房</h3>
+          </router-link>
         </template>
       </van-tab>
       <van-tab>
@@ -28,7 +26,6 @@
             <van-icon name="search" size="26" />
           </router-link>
         </template>
-        内容3
       </van-tab>
     </van-tabs>
    <router-view/>
@@ -51,13 +48,19 @@ export default {
     bofang
   },
   methods: {
-    hyHandle() {},
-
+    hyHandle() {}
   }
 };
 </script>
 
 <style  scoped>
+.zong {
+  width: 100%;
+  background: #ffffff;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+}
 i {
   font: 0.213333rem;
   font-weight: 600;

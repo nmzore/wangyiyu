@@ -4,7 +4,7 @@
     <!-- 侧边栏 -->
     <div>
       <!-- <van-icon name="wap-nav" /> -->
-      <mokuai style=" padding: 10px;"></mokuai>
+      <mokuai style="padding: 10px"></mokuai>
     </div>
     <!-- 用户信息 -->
     <div class="user">
@@ -52,7 +52,7 @@
       </div>
     </div>
     <!-- 我喜欢的 -->
-    <div class="ilike">
+    <div class="ilike" @click="golikelist">
       <div class="ilike-left">
         <div>
           <van-image width="65px" height="65px" :src="url2" />
@@ -66,44 +66,43 @@
           >
         </div>
       </div>
-      <div class="ilike-right" @click="golikelist">心动模式</div>
+      <div class="ilike-right">心动模式</div>
       <router-view></router-view>
     </div>
     <!-- 标签导航 -->
     <div class="tabnav">
-      <van-tabs
-        v-model="activeName"
-        scrollspy
-        sticky
-        background="none"
-        line-width="60px"
-      >
+      <van-tabs scrollspy sticky background="none" line-width="60px">
         <van-tab title="创建歌单" name="a">
           <div class="createlist">
             <div class="title">
-              <p>创建歌单（2个）</p>
+              <p>创建歌单（{{ num3 }}个）</p>
               <div class="icons">
                 <van-icon name="plus" />
                 <van-icon name="more-o" />
               </div>
             </div>
             <div class="card">
-              <div>
+              <div
+                v-for="item in list"
+                :key="item.id"
+                @click="golistdetail(item.id)"
+              >
                 <van-card
-                  desc="27首"
-                  title="运动歌单"
-                  thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
+                  :desc="'' + item.trackCount"
+                  :title="item.name"
+                  :thumb="item.coverImgUrl"
                 >
+                  <van-icon name="more-o" />
                 </van-card>
               </div>
-              <van-icon name="more-o" />
+              <!-- <van-icon name="more-o" /> -->
             </div>
           </div>
         </van-tab>
         <van-tab class="collect" title="收藏歌单" name="b">
           <div class="createlist">
             <div class="collect-title">
-              <p>创建歌单</p>
+              <p>收藏歌单</p>
               <van-icon name="more-o" />
             </div>
             <div class="collectcontent">
@@ -120,15 +119,20 @@
               <p>你可以从歌单中筛选</p>
             </div>
             <div class="texts">
-              <p>最近一年收藏的古风歌曲</p>
-              <p>陪你一起运动的50首摇滚</p>
-              <p>适合夜晚听的民谣</p>
-              <p>很久未听的华语男声精选</p>
-              <div>
-                <van-button round color="#ff2639" size="small"
-                  >试试看</van-button
-                >
-              </div>
+              <p>
+                <span class="a">最近一年收藏</span>的<span class="b"
+                  >古风歌曲</span
+                >古风歌曲
+              </p>
+              <p>陪你一起<span class="c">运动</span>的50首摇滚</p>
+              <p>
+                适合<span class="d">夜晚听</span>的<span class="e">民谣</span>
+              </p>
+              <p>
+                <span class="f">很久未听的</span>华语<span class="g">男声</span
+                >精选
+              </p>
+              <van-button round color="#ff2639" size="small">试试看</van-button>
             </div>
           </div>
         </van-tab>
@@ -137,17 +141,20 @@
     <!-- 为你推荐 -->
     <div class="recommend">
       <p>为你推荐</p>
-      <div>
-        <div style="width: 100px" height="100px">
-          <img
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
-            alt=""
-            width="100"
-            height="100"
-          />
+      <div class="tuijielist">
+        <div
+          style="width: 100px"
+          height="100px"
+          v-for="item in list2"
+          :key="item.id"
+        >
+          <img :src="item.coverImgUrl" alt="" width="100" height="100" />
+          <p>{{ item.name }}</p>
         </div>
-        <p>飙升榜</p>
       </div>
+      <van-button color="#bababa" plain size="small" round
+        >更多推荐歌单></van-button
+      >
     </div>
     <bofang :inputName="ids"></bofang>
   </div>
@@ -155,10 +162,10 @@
 <script>
 import mokuai from "../../components/All/mokuai";
 import bofang from "../../components/All/bofang";
-import { likelist, yonghu, songdetail } from "../../services/auto";
+import { likelist, yonghu, songdetail,userplaylist,
+  toplist, } from "../../services/auto";
 
 export default {
-  
   data() {
     return {
       ids:'',
@@ -176,6 +183,15 @@ export default {
       uid: "",
       url2: "https://img01.yzcdn.cn/vant/cat.jpeg",
       idss: [],
+      num3: "",
+      list: [],
+      list2: [],
+      id: "",
+      listid: "",
+      flag: false,
+      // desc: "0",
+      // title: "我的歌单",
+      // url3: "https://img01.yzcdn.cn/vant/cat.jpeg",
     };
   },
   async created() {
@@ -186,34 +202,57 @@ export default {
     if (res.code == 200) {
       this.Namea = res.profile.nickname;
       this.url = res.profile.avatarUrl;
-      console.log(localStorage.cookie);
+      //console.log(localStorage.cookie);
       if (localStorage.cookie) {
         this.vip = true;
       } else {
         this.vip = false;
       }
     }
-    console.log(res.account.id);
+    //console.log(res.account.id);
     this.uid = res.account.id;
-    console.log(this.uid);
+    //console.log(this.uid);
     const res1 = await likelist({
       uid: this.uid,
       cookie: localStorage.cookie,
     });
-    console.log(res1);
-    console.log(res1.ids.length);
+    // console.log(res1);
+    // console.log(res1.ids.length);
     this.num1 = res1.ids.length;
     this.idss = res1.ids;
-    const ids = this.idss[0];
-    console.log(this.idss);
-    console.log(ids);
+    //const ids = this.idss[0];
+    // console.log(this.idss);
+    // console.log(ids);
     const res2 = await songdetail({
-      ids: ids,
+      ids: this.idss[0],
       cookie: localStorage.cookie,
     });
-    console.log(res2);
-    console.log(res2.songs[0].al.picUrl);
-    this.url2 = res2.songs[0].al.picUrl;
+    // console.log(res2);
+    // console.log(res2.songs[0].al.picUrl);
+    this.url3 = res2.songs[0].al.picUrl;
+    const res3 = await userplaylist({
+      uid: this.uid,
+      cookie: localStorage.cookie,
+    });
+    // console.log(res3);
+    this.num3 = res3.playlist.length;
+    this.list = this.list.concat(res3.playlist);
+    console.log(this.list);
+    this.url2 = res3.playlist[0].coverImgUrl;
+    // this.title = res3.playlist[0].name;
+    // this.desc = res3.playlist[0].trackCount;
+    // const res4 = await albumsublist({
+    //   cookie: localStorage.cookie,
+    // });
+    // console.log(res4);
+    const res4 = await toplist({
+      cookie: localStorage.cookie,
+    });
+    console.log(res4);
+    const arr = res4.list;
+    console.log(this.listid);
+    console.log(arr);
+    this.list2 = this.list2.concat(arr.slice(0, 6));
   },
   methods: {
     dianji(ids){
@@ -237,8 +276,33 @@ export default {
         },
       });
     },
+    golistdetail(id) {
+      console.log(id);
+      this.listid = id;
+      console.log(this.listid);
+      this.$router.push({
+        path: "/listdetail",
+        query: {
+          listid: this.listid,
+        },
+      });
+    },
+    // beforeEnter() {
+    //   style.transform = "translate(0,0)";
+    // },
+
+    // enter(done) {
+    //   offsetWidth;
+    //   style.transform = "translate(150px,450px)";
+    //   style.transition = "all 1s ease";
+
+    //   done();
+    // },
+    // afterEnter() {
+    //   this.flag = !this.flag;
+    // },
   },
- components: {
+  components: {
     mokuai,
     bofang
   },
@@ -285,7 +349,8 @@ export default {
   border-radius: 50px;
 }
 .mine-style .right p {
-  line-height: 35px;
+  width: 100px;
+  line-height: 20px;
 }
 .mine-style .tab {
   width: 90px;
@@ -419,9 +484,9 @@ export default {
 .mine-style .card {
   margin: 0 auto;
   width: 100%;
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
 }
 .mine-style .card .v-card {
   width: 80%;
@@ -473,6 +538,35 @@ export default {
   color: #6d6d6d;
   margin: 10px 0;
 }
+.a {
+  color: #e77fcd;
+  background: pink;
+}
+.b {
+  color: #ec44c2;
+  background: rgb(247, 138, 156);
+}
+.c {
+  color: #1b75c9;
+  background: rgb(180, 213, 240);
+}
+.d {
+  color: #17e644;
+  background: rgb(183, 228, 205);
+}
+.e {
+  color: #0f837d;
+  background: rgb(161, 189, 172);
+}
+.f {
+  color: #dce73c;
+  background: rgb(234, 241, 203);
+}
+.g {
+  color: #e77fcd;
+  background: pink;
+}
+
 .mine-style .recommend {
   padding: 20px 20px;
 }
@@ -480,5 +574,15 @@ export default {
   font-size: 14px;
   color: #616161;
   margin-bottom: 10px;
+}
+.mine-style .tuijielist {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mine-style .van-button--plain {
+  margin-top: 15px;
+  margin-left: 110px;
 }
 </style>
