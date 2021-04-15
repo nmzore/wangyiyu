@@ -14,12 +14,12 @@ const routes = [{
     name: "Boke",
     component: () => import("../views/Boke/Boke.vue"),
   },
-   {
+  {
     path: "/hear",
     name: "Hear",
     component: () => import("../components/boke/Hear.vue"),
   },
-    {
+  {
     path: "/find",
     name: "Find",
     component: () => import("../components/boke/Find.vue"),
@@ -42,16 +42,20 @@ const routes = [{
     path: "/SouSuo",
     name: "SouSuo",
     component: () => import("../views/Kege/SouSuo.vue"),
+  }, {
+    path: "/wodekge",
+    name: "WoDeKGe",
+    component: () => import("../views/Kege/WoDeKe.vue"),
+  }, {
+    path: "quchangge",
+    name: "QuChGe",
+    component: () => import("../views/Kege/QuChGe.vue"),
   },
   {
     path: "/Kege",
     name: "Kege",
     component: () => import("../views/Kege/Kege.vue"),
     children: [{
-        path: "quchangge",
-        name: "QuChGe",
-        component: () => import("../views/Kege/Kge/QuChGe.vue"),
-      }, {
         path: "guangchang",
         name: "GuangChang",
         component: () => import("../views/Kege/Kge/GuangChang.vue")

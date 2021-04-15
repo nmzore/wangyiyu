@@ -1,88 +1,199 @@
 <template>
   <div class="guangchang">
-          <van-row gutter="22" class="kg">
-           <router-link :to="{ name: 'QuChGe' }">
-          <van-col span="11" class="kg1">
-            <i class="fa fa-microphone">
-              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;去唱歌</b>
-            </i>
-          </van-col></router-link>
-          <van-col span="11" class="kg2">
-            <i class="fa fa-book">
-              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的K歌</b>
-            </i>
-          </van-col>
-        </van-row>
-
-        <div id="hy_hang">
-          <van-tabs class="hy_hang" v-model="activeName" >
-            <van-tab title="好友" name="a">
-              
-            </van-tab>
-            <van-tab title="推荐" name="b">
-               <div class="list">
-    <div class="item" v-for="item in tuijians" :key="item._id">
-      <img :src="item.coverImg" alt="item.name" />
-      <h4>{{ item.name }}</h4>
-
-      <div class="price">
-        <span>￥{{ item.price / 100 }}</span>
-        <button class="btn" @click="buy(item._id)">
-          <i class="fa fa-shopping-cart"></i> 购买
-        </button>
+    <h1 class="caini">
+      猜你想唱的
+      <i class="el-icon-arrow-right"></i>
+    </h1>
+    <div class="lunbo">
+      <div class="lunbos_1" v-for="item in lunbos" :key="item._id">
+        <img :src="item.al.picUrl" alt="item.name" />
+        <h4>{{ item.al.name }}</h4>
+        <p class="p1">{{ item.ar.name }}</p>
+        <p class="p2">演唱</p>
       </div>
     </div>
-    <i class="zw"></i>
-    <i class="zw"></i>
-    <i class="zw"></i>
-    <i class="zw"></i>
-    <button class="btn-loadmore" @click="loadMore">加载更多</button>
-  </div>
-            </van-tab>
-            <van-tab title="古风" name="c">内容 3</van-tab>
-            <van-tab title="说唱" name="d">内容 4</van-tab>
-          </van-tabs>
+    <!-- <van-swipe @change="onChange" class="lunbo">
+      <van-swipe-item v-for="item in lunbos" :key="item._id">
+        <div class="lunbos_1" v-for="item in lunbos" :key="item._id">
+          <img :src="item.al.picUrl" alt="item.name" />
+          <h4>{{ item.al.name }}</h4>
+          <p>{{ item.ar.name }}</p>
         </div>
+      </van-swipe-item>
+
+    </van-swipe>-->
+    <!-- 去唱歌  行 -->
+    <van-row gutter="22" class="kg">
+      <router-link :to="{ name: 'QuChGe' }">
+        <van-col span="11" class="kg1">
+          <i class="fa fa-microphone">
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;去唱歌</b>
+          </i>
+        </van-col>
+      </router-link>
+
+      <router-link :to="{ name: 'WoDeKGe' }">
+        <van-col span="11" class="kg2">
+          <i class="fa fa-book">
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的K歌</b>
+          </i>
+        </van-col>
+      </router-link>
+    </van-row>
+    <!-- 好友       行 -->
+    <div id="hy_hang">
+      <van-tabs class="hy_hang" v-model="activeName">
+        <van-tab title="好友" name="a">
+          <!-- 好友  接口内容引入 -->
+          <!-- <div class="haoyou_v">
+            <div class="item" v-for="item in lunbos" :key="item._id">
+              <img :src="item.al.picUrl" alt="item.name" />
+              <h4>{{ item.al.name }}</h4>
+            </div>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+          </div>-->
+        </van-tab>
+        <van-tab title="推荐" name="b">
+          <div class="list">
+            <div class="item" v-for="item in tuijians" :key="item._id">
+              <img :src="item.coverImgUrl" alt="item.name" />
+              <h4>{{ item.name }}</h4>
+            </div>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <button class="btn-loadmore" @click="loadMore">加载更多</button>
+          </div>
+        </van-tab>
+        <van-tab title="古风" name="c">
+          <div class="list2">
+            <div class="item" v-for="item in gufengs" :key="item._id">
+              <img :src="item.coverImgUrl" alt="item.name" />
+              <h4>{{ item.name }}</h4>
+            </div>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <i class="zw"></i>
+            <button class="btn-loadmore" @click="loadMore">加载更多</button>
+          </div>
+        </van-tab>
+        <van-tab title="说唱" name="d">内容 4</van-tab>
+      </van-tabs>
+    </div>
   </div>
 </template>
 
 <script>
-import { loadList } from "../../../services/KeGe/TuiJan.js";
+import axios from "axios";
+import { haoyouList, tuijianList } from "../../../services/KeGe/TuiJan.js";
 export default {
-    data() {
+  data() {
     return {
       active: 2,
       activeName: "a",
-       tuijians: [],
-      page: 1
+      tuijians: [],
+      gufengs: [],
+      lunbos: []
     };
   },
-    created() {
-    this.loadData();
+  async created() {
+    const haoyou = await haoyouList({
+      cookie: localStorage.cookie
+    });
+    console.log(haoyou);
+    this.lunbos = haoyou.data.dailySongs;
+    this.lunbos.length = 20;
+    const tuijian = await tuijianList({
+      cookie: localStorage.cookie
+    });
+    console.log(tuijian);
+
+    // /top/playlist/highquality 古风
+    axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
+      console.log(res);
+      this.gufengs = res.data.playlists;
+      // this.banners = res.data.banners;
+    });
   },
   methods: {
     loadMore() {
-      this.loadData();
+      // this.loadData();
     },
     // hyHandle() {},
-     async loadData() {
-      const res = await loadList(this.page, this.$route.query.c);
-      console.log(res);
-      
-      this.page++;
-      this.tuijians = [...this.tuijians, ...res.tuijians];
-    },
+    //  async loadData() {
+    //   const res = await loadList(this.page, this.$route.query.c);
+    //   console.log(res);
+    //   this.tuijians = [...this.tuijians, ...res.tuijians];
+    // },
+    onChange() {
+      // Toast("当前 Swipe 索引：" + index);
+    }
   }
 };
-
 </script>
 
 <style scoped>
+.guangchang {
+  background: rgb(255, 255, 255);
+}
 i {
   font: 0.213333rem;
   font-weight: 600;
   font-style: normal;
 }
+/* 猜你想唱 */
+.caini {
+  margin-top: 4rem;
+  font-size: 1em;
+  font-weight: 800;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+/* 轮播 样式 */
+.lunbo {
+  width: 90%;
+  height: 10rem;
+  background: rgb(231, 231, 231);
+  margin-top: 2rem;
+  overflow: auto;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+.lunbo img {
+  width: 3rem;
+  margin-left: 1.4rem;
+}
+.lunbo h4 {
+  /* display: inline-block; */
+  margin-left: 5rem;
+  margin-top: -3.8rem;
+  width: 12rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.lunbos_1 {
+  height: 3rem;
+  margin-top: 0.4rem;
+  line-height: 2.5rem;
+}
+.lunbos_1 .p2 {
+  width: 4rem;
+  height: 2rem;
+  float: right;
+  margin-right: 1.7rem;
+  margin-top: -2.2rem;
+  text-align: center;
+  border: #e09a02 0.013333rem solid;
+  border-radius: 1rem;
+  line-height: 2rem;
+}
+/*  */
 .kg {
   margin-top: 1rem;
 }
@@ -131,6 +242,10 @@ b {
   color: rgb(199, 199, 199);
   height: 1.3rem;
   margin-left: 0.8rem;
+  background: #ffffff;
+  /* z-index: 2;
+  position: fixed;
+  top: 15rem; */
 }
 
 /*.van-tabs__nav--card {
