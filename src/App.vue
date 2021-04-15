@@ -2,25 +2,41 @@
   <div id="app">
     <router-view class="main"></router-view>
     <van-tabbar route v-if="$route.meta.showTabbar">
-      <van-tabbar-item replace :to="{ name: 'Home' }" icon="home-o"
+      <van-tabbar-item
+        replace
+        :to="{ name: 'Home' }"
+        icon="home-o"
         >发现</van-tabbar-item
       >
-      <van-tabbar-item replace :to="{ name: 'Boke' }" icon="search"
+      <van-tabbar-item
+        replace
+        :to="{ name: 'Boke' }"
+        icon="search"
         >博客</van-tabbar-item
       >
-      <van-tabbar-item replace :to="{ name: 'User' }" icon="friends-o"
+      <van-tabbar-item
+        replace
+        :to="{ name: 'User' }"
+        icon="friends-o"
         >我的</van-tabbar-item
       >
-      <van-tabbar-item replace :to="{ name: 'Kege' }" icon="setting-o"
+      <van-tabbar-item
+        replace
+        :to="{ name: 'Kege' }"
+        icon="setting-o"
         >K歌</van-tabbar-item
       >
-      <van-tabbar-item replace :to="{ name: 'Yuncun' }" icon="setting-o"
+      <van-tabbar-item
+        replace
+        :to="{ name: 'Yuncun' }"
+        icon="setting-o"
         >云村</van-tabbar-item
       >
     </van-tabbar>
   </div>
 </template>
 <script>
+
 export default {
   name: "App",
   data() {
@@ -28,6 +44,8 @@ export default {
       // active: 0,
       isShowNav: true,
     };
+  },
+  components: {
   },
 };
 </script>

@@ -1,4 +1,5 @@
 <template>
+
   <div class="mine mine-style">
     <!-- 侧边栏 -->
     <div>
@@ -38,8 +39,9 @@
           <van-grid-item
             icon="music"
             text="本地下载"
+             @click="dianji(33894312)"
           />
-          <van-grid-item icon="invition" text="云盘"/>
+          <van-grid-item icon="invition" text="云盘"  @click="dianji(1804320463)"/>
           <van-grid-item icon="gift-card" text="已购" />
           <van-grid-item icon="play-circle" text="音乐播放" />
           <van-grid-item icon="friends" text="我的好友" />
@@ -152,13 +154,14 @@
 </template>
 <script>
 import mokuai from "../../components/All/mokuai";
+import bofang from "../../components/All/bofang";
 import { likelist, yonghu, songdetail } from "../../services/auto";
 
 export default {
   
   data() {
     return {
-     
+      ids:'',
       activeName: "a",
       content: [
         { text: "最近一年收藏的古风歌曲" },
@@ -213,6 +216,9 @@ export default {
     this.url2 = res2.songs[0].al.picUrl;
   },
   methods: {
+    dianji(ids){
+      this.ids=ids
+    },
     nowlogin() {
       if (localStorage.cookie != null) {
         console.log(1);
@@ -234,6 +240,7 @@ export default {
   },
  components: {
     mokuai,
+    bofang
   },
 };
 </script>

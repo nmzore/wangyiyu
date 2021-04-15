@@ -8,6 +8,9 @@ export const setCookie = (cookie) => {
 export const getCookie = (cookie) => {
     return localStorage.setItem("cookie", cookie);
 };
+export const cunShzu = (shuzu) => {
+    return localStorage.setItem("cunshuzu", shuzu);
+};
 
 //获取token
 export const getToken = (token) => {

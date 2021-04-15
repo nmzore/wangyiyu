@@ -32,17 +32,23 @@
       </van-tab>
     </van-tabs>
    <router-view/>
+   <bofang :inputName="ids"></bofang>
   </div>
 </template>
 
 <script>
 // import axios from "axios";
+import bofang from "../../components/All/bofang";
+
 export default {
   data() {
     return {
       active: 2,
       activeName: "a"
     };
+  },
+   components: {
+    bofang
   },
   methods: {
     hyHandle() {},

@@ -27,3 +27,9 @@ export function likelist(data) {
 export function songdetail(data) {
     return get("/song/detail",data)
 }
+export function chaxun(data) {
+    return get("/cloudsearch",data)
+}
+export function ree(data) {
+    return get("/cloudsearch",data)
+}

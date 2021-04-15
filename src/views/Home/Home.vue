@@ -27,7 +27,7 @@
     <!-- 导航栏 -->
     <div class="nav">
       <van-grid :gutter="10" :border="false">
-        <van-grid-item icon="photo-o" text="推荐" />
+        <van-grid-item icon="photo-o" text="推荐"  @click="dianji(33894312)"/>
         <van-grid-item icon="photo-o" text="FM" />
         <van-grid-item icon="photo-o" text="歌单" />
         <van-grid-item icon="photo-o" text="排行" />
@@ -413,17 +413,20 @@
         <button>自定义排序</button>
       </div>
     </div>
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import bofang from "../../components/All/bofang";
 import mokuai from "../../components/All/mokuai";
 // import { get } from "../../utils/request";
 export default {
   name: "Home",
   data() {
     return {
+      ids:'',
       active: 0,
       banners: [],
       gds: [],
@@ -451,9 +454,14 @@ export default {
   },
   components: {
     mokuai,
+    bofang
   },
   mounted() {},
-  methods: {},
+  methods: {
+    dianji(ids){
+      this.ids=ids
+    },
+  },
   created() {
     //轮播图请求
     axios.get("http://localhost:3000/banner").then((res) => {
