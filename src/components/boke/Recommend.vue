@@ -5,10 +5,14 @@
     <SongsList></SongsList>
     <Sltsongs></Sltsongs>
     <Musicstory></Musicstory>
+    <Msclover></Msclover>
+    <Mscprecious></Mscprecious>
   </div>
 </template>
 
 <script>
+import Msclover from './Msclover'
+import Mscprecious from './Mscprecious.vue'
 import Musicstory from './Musicstory'
 import RmdList from './RmdList'
 import Sltsongs from './Sltsongs'
@@ -24,6 +28,8 @@ export default {
     SongsList,
     Sltsongs,
     Musicstory,
+    Msclover,
+    Mscprecious,
   },
   methods:{
     find(){

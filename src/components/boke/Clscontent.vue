@@ -54,6 +54,7 @@ async  created(){
   const reg = await clsctn({
   cookie: localStorage.cookie,
   });
+  // switch
     this.contentss = reg.data.dailySongs;
     console.log(888,this.contentss);
     this.contentss.length = 6;

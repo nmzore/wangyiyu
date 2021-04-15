@@ -47,12 +47,14 @@
       </van-grid>
       </div>
     </div>
+    <Hearswipe></Hearswipe>
     <HearList></HearList>
   </div>
 </template>
 <script>
 import axios from "axios";
 import HearList from "./HearList"
+import Hearswipe from "./Hearswipe"
 export default {
   name:"Hear",
   data(){
@@ -64,6 +66,7 @@ export default {
   },
   components:{
     HearList,
+    Hearswipe,
   },
    created(){
     axios
