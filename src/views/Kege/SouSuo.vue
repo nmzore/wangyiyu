@@ -11,9 +11,9 @@
       placeholder="请输入搜索关键词"
     />
     <p class="quxiao" @click="fanhuiHandle">取消</p>
-    <div id="hy_hang">
+    <!-- <div id="hy_hang">
       <van-tabs class="hy_hang" v-model="activeName">
-        <!-- 猜你想唱 -->
+        猜你想唱
         <van-tab title="猜你想唱" name="a">
           <div class="list1">
             <div class="item list1_1" v-for="item in gufengs" :key="item._id">
@@ -28,7 +28,7 @@
             <button class="btn-loadmore" @click="loadMore">加载更多</button>
           </div>
         </van-tab>
-        <!-- 热门榜单 -->
+        热门榜单
         <van-tab title="热门榜单" name="b">
           <div class="list2">
             <div class="item list2_2" v-for="item in tuijians" :key="item._id">
@@ -42,7 +42,7 @@
             <button class="btn-loadmore" @click="loadMore">加载更多</button>
           </div>
         </van-tab>
-        <!-- 已点 -->
+        已点
         <van-tab title="已点" name="c">
           <div class="list3">
             <div class="item list3_3" v-for="item in gufengs" :key="item._id">
@@ -57,13 +57,13 @@
           </div>
         </van-tab>
       </van-tabs>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
 import axios from "axios";
-// import { xiangchangs } from "../../services/KeGe/TuiJan";
+import { likeList } from "../../services/KeGe/TuiJan";
 export default {
   data() {
     return {
@@ -72,11 +72,17 @@ export default {
       activeName: "a",
       tuijians: [],
       gufengs: [],
-      xiangchangs: []
+      xiangchangs: [],
+      likes: []
     };
   },
 
-  created() {
+  async created() {
+    const like = await likeList({
+      cookie: localStorage.cookie
+    });
+    console.log(like);
+    // this.likes = like.data.dailySongs;
     axios.get("http://localhost:3000/top/playlist/highquality").then(res => {
       console.log(res);
       this.xiangchangs = res.data.playlists;
@@ -105,17 +111,6 @@ export default {
       history.back();
     }
   }
-  //   searchHandle(e) {
-  //   if (e.keyCode === 13 && this.kw) {
-  //     // http://net-music.penkuoer.com/search?keywords=" + this.kw
-  //     fetch("http://net-music.penkuoer.com/search?keywords=" + this.kw)
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         console.log(data);
-  //         this.list = data.result.songs;
-  //       });
-  //   }
-  // }
 };
 </script>
 
@@ -137,13 +132,15 @@ export default {
   font-size: 1.5rem;
 } */
 .sousuo .quxiao {
-  float: right;
-  margin-right: 1.9rem;
+  /* float: right; */
+  width: 2rem;
+  margin-left: 85%;
   margin-top: -2.2rem;
 }
 .ipt {
+  /* float: left; */
   margin-left: 1rem;
-  width: 21rem;
+  width: 18rem;
 }
 /* 选项卡样式 */
 i {

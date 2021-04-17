@@ -43,6 +43,10 @@ export function tuijianerList(data) {
 export function huoquList() {
   return get('/event')
 }
+// 喜欢列表   /likelist
+export function likeList() {
+  return get(' /likelist?uid=32953014')
+}
 // export function loadProducts(page = 1, product_category = "") {
 //   return get("/api/v1/products", {
 //     page,

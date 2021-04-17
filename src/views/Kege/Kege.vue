@@ -5,7 +5,7 @@
         <template #title>
           <mokuai style=" padding: 10px;"></mokuai>
         </template>
-        内容4
+        <!-- 内容4 -->
       </van-tab>
       <van-tab>
         <!-- @click="GuangChangHandle" :to="{ name: 'GuangChang' }" -->
