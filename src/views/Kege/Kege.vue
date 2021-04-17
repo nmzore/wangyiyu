@@ -3,7 +3,7 @@
     <van-tabs v-model="active" route class="zong">
       <van-tab>
         <template #title>
-          <van-icon name="wap-nav" size="26" />
+          <mokuai style=" padding: 10px;"></mokuai>
         </template>
         内容4
       </van-tab>
@@ -36,7 +36,7 @@
 <script>
 // import axios from "axios";
 import bofang from "../../components/All/bofang";
-
+import mokuai from "../../components/All/mokuai";
 export default {
   data() {
     return {
@@ -45,7 +45,8 @@ export default {
     };
   },
    components: {
-    bofang
+    bofang,
+    mokuai
   },
   methods: {
     hyHandle() {}

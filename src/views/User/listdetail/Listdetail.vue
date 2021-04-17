@@ -45,7 +45,7 @@
         </p>
       </div>
       <div class="list-content">
-        <van-list v-for="(item, index) in lists" :key="item.id">
+        <van-list v-for="(item, index) in lists" :key="item.id" >
           <p>{{ index + 1 }}</p>
           <div class="listname">
             <span class="listname-top">{{ item.al.name }}</span>
@@ -56,20 +56,26 @@
             </div>
           </div>
           <div class="listcontent-right">
-            <van-icon name="video-o" size="22" />
+            <van-icon name="video-o" size="22" @click="dianji(item.id)" />
             <van-icon name="other-pay" size="22" />
           </div>
         </van-list>
       </div>
     </div>
+    <bofang :inputName="ids"></bofang>
   </div>
 </template>
 
 <script>
 import { playlistdetail } from "../../../services/auto";
+import bofang from "../../../components/All/bofang";
 export default {
+    components: {
+    bofang
+  },
   data() {
     return {
+      ids:'',
       listid: "",
       url: "",
       name: "",
@@ -92,6 +98,7 @@ export default {
   },
   watch: {},
   methods: {
+     
     gouser() {
       this.$router.push({
         path: "/User",
@@ -110,8 +117,11 @@ export default {
       this.lists = this.lists.concat(res.playlist.tracks);
       console.log(this.lists);
     },
+    dianji(id){
+       console.log(id)
+      this.ids=id
+    },
   },
-  components: {},
 };
 </script>
 

@@ -3,7 +3,7 @@
     <van-tabs v-model="activeName">
         <van-tab name="a">
             <template  #title >
-              <van-icon name="wap-nav" size="26" />
+              <mokuai style=" padding: 10px;"></mokuai>
             </template>
           </van-tab>
           <van-tab  title="听听" name="b">
@@ -28,6 +28,7 @@
 
 <script>
 import Hear from '../../components/boke/Hear'
+import mokuai from "../../components/All/mokuai";
 import Recommend from '../../components/boke/Recommend'
 import Classify from '../../components/boke/Classify'
 export default {
@@ -36,6 +37,7 @@ export default {
    Hear,
    Recommend,
    Classify,
+   mokuai
   },
   data() {
     return {

@@ -10,16 +10,20 @@
         <p>{{clsfen.name}}</p>
       </van-grid-item>
     </van-grid>
+
   </div>
 </template>
 <script>
 import { clsfen } from '../../services/boke/clstit'
 export default {
+   
      data() {
     return {
+      ids:'',
     clsfens:[],
     };
    },
+  
  async created(){
     const ref = await clsfen({
     cookie: localStorage.cookie,

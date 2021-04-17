@@ -3,11 +3,13 @@
     <div style="padding:10px 0;">
       <aplayer
       id="audio"
-       controls 
+       controls
+       theme 
+       listFolded
+       fixed=true,
        autoplay="autoplay"
        lrcType=3
         :music="currentMusic[0]"
-
         :list="currentMusic"
       >
       </aplayer>
@@ -28,6 +30,7 @@ export default {
     inputName: function(indexVal, oldVal) {
       console.log(indexVal, oldVal);
       this.dianji(indexVal);
+      console.log(indexVal)
     },
   },
   data() {

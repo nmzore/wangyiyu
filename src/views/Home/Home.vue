@@ -4,11 +4,7 @@
     <div class="header">
       <mokuai style=" padding: 10px;"></mokuai>
       <!-- v-model="value" -->
-      <van-search
-        shape="round"
-        background="#fff"
-        placeholder="请输入搜索关键词"
-      />
+       <van-search  @click="find()" v-model="value" placeholder="搜索你感兴趣的内容" />
       <van-icon name="service-o" />
     </div>
 
@@ -27,16 +23,6 @@
     <!-- 导航栏 -->
     <div class="nav">
       <van-grid :gutter="10" :border="false">
-<<<<<<< HEAD
-        <van-grid-item icon="photo-o" text="推荐"  @click="dianji(33894312)"/>
-        <van-grid-item icon="photo-o" text="FM" />
-        <van-grid-item icon="photo-o" text="歌单" />
-        <van-grid-item icon="photo-o" text="排行" />
-        <van-grid-item icon="photo-o" text="直播" />
-        <van-grid-item icon="photo-o" text="专辑" />
-        <van-grid-item icon="photo-o" text="唱聊" />
-        <van-grid-item icon="photo-o" text="游戏" />
-=======
         <van-grid-item icon="shop-collect-o" text="推荐" />
         <van-grid-item icon="video-o" text="FM" />
         <van-grid-item icon="service-o" text="歌单" />
@@ -45,7 +31,6 @@
         <van-grid-item icon="aim" text="专辑" />
         <van-grid-item icon="bullhorn-o" text="唱聊" />
         <van-grid-item icon="gem-o" text="游戏" />
->>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
       </van-grid>
     </div>
 
@@ -85,8 +70,8 @@
       <div class="sr-bot">
         <div class="sr-bot-01" v-for="item in srs" :key="item.id">
           <div v-for="aa in item" :key="aa.id">
-            <van-card :thumb="aa.picUrl">
-              <template #tags>
+            <van-card :thumb="aa.picUrl" @click="dianji(aa.id)">
+              <template #tags >
                 <p>{{ aa.name }}</p>
                 <van-tag plain type="danger">{{ aa.type }}</van-tag>
                 <span>{{ aa.company }}</span>
@@ -437,12 +422,7 @@ export default {
   name: "Home",
   data() {
     return {
-<<<<<<< HEAD
       ids:'',
-=======
-      id: [],
-      ids: "",
->>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
       active: 0,
       banners: [],
       gds: [],
@@ -474,10 +454,10 @@ export default {
   },
   mounted() {},
   methods: {
-<<<<<<< HEAD
-    dianji(ids){
-      this.ids=ids
-=======
+    dianji(id){
+      this.ids=id
+       console.log(this.ids)
+      },
     //更多按钮跳转到歌单广场
     jumpsquare() {
       this.$router.push({
@@ -492,8 +472,12 @@ export default {
           ids: ids,
         },
       });
->>>>>>> 4b95d97e248f215788fb0cb0e6f47813ed7b9b04
     },
+     find(){
+      this.$router.push({
+        name:'Find',
+      });
+    }
   },
   created() {
     //轮播图请求
@@ -521,6 +505,7 @@ export default {
       }
       // console.log(result);
       this.srs = result;
+      console.log(this.srs);
     });
     //排行榜
     axios

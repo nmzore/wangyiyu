@@ -35,7 +35,7 @@
     <!-- 歌单详情列表 -->
     <div class="xun" v-for="(item, index) in gdlist" :key="item.id">
       <div class="list">
-        <div class="list-left">
+        <div class="list-left" @click="dianji(item.id)">
           <i>{{ index + 1 }}</i>
           <div class="musicname">
             <!-- 歌名 -->
@@ -51,16 +51,19 @@
         </div>
       </div>
     </div>
+     <bofang :inputName="ids"></bofang>
+     <div id="box0"></div>
   </div>
 </template>
 
 <script>
 // import axios from "axios";, musicUrl
 import { souso } from "../../services/auto";
+import bofang from "../../components/All/bofang";
 export default {
-  components: {},
   data() {
     return {
+      ids:'',
       id: "",
       title: "",
       imgUrl: "",
@@ -70,6 +73,9 @@ export default {
   },
   //监听属性 类似于data概念
   computed: {},
+   components: {
+    bofang
+  },
   //监控data中的数据变化
   watch: {},
   methods: {
@@ -79,6 +85,10 @@ export default {
         path: "/",
       });
     },
+     dianji(id){
+      this.ids=id
+       console.log(this.ids)
+      },
     //歌单列表
     async songList(id) {
       const ref = await souso({
@@ -130,7 +140,9 @@ export default {
   destroyed() {},
   //如果页面有keep-alive缓存功能，这个函数会触发
   activated() {},
+  
 };
+
 </script>
 <style scoped>
 /* 头部 */
@@ -228,5 +240,13 @@ export default {
 }
 .list-right .van-icon-play-circle-o {
   margin-right: 1rem;
+}
+#box0{
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    z-index: 1000000;
 }
 </style>

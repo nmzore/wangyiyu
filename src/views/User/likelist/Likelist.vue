@@ -45,7 +45,7 @@
         </p>
       </div>
       <div class="list-content">
-        <van-list v-for="(item, index) in list" :key="item.id">
+        <van-list v-for="(item, index) in list" :key="item.id" >
           <p>{{ index + 1 }}</p>
           <div class="listname">
             <span class="listname-top">{{ item.al.name }}</span>
@@ -56,21 +56,26 @@
             </div>
           </div>
           <div class="listcontent-right">
-            <van-icon name="video-o" size="22" />
+            <van-icon name="video-o" size="22" @click="dianji(item.id)"/>
             <van-icon name="other-pay" @click="delatesong(item.id)" size="22" />
           </div>
         </van-list>
       </div>
     </div>
+       <bofang :inputName="ids"></bofang>
   </div>
 </template>
 
 <script>
 import { likelist, yonghu, songdetail } from "../../../services/auto";
+
+import bofang from "../../../components/All/bofang";
+
 export default {
   props: {},
   data() {
     return {
+      ids:'',
       url2: "https://img01.yzcdn.cn/vant/cat.jpeg",
       name: "",
       num1: "",
@@ -136,6 +141,10 @@ export default {
       this.$router.push({
         path: "/User",
       });
+   
+    },
+       dianji(ids){
+      this.ids=ids
     },
     async ilikelist() {
       // 异步更新数据
@@ -168,7 +177,9 @@ export default {
     //   console.log(res4);
     // },
   },
-  components: {},
+    components: {
+    bofang
+  },
 };
 </script>
 

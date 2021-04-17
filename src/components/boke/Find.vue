@@ -32,7 +32,7 @@
         <h1>热门搜索</h1>
         <ul v-for="(item, index) in list" :key="item" id="ulst">
           
-            ><li id="list">
+            <li id="list" >
               <span id="spanst">{{ index }}</span
               >{{ item.first }}
             </li>
@@ -52,7 +52,7 @@ export default {
     return {
       ids: "",
       value: "",
-      show: false,
+      show: true,
       list: [],
       lista: [],
     };
@@ -63,11 +63,13 @@ export default {
       const chaxu = await chaxun({
         keywords: val,
       });
+       this.show=true
       this.lista = chaxu.result.songs;
       console.log(this.lista);
     },
     onCancel() {
       Toast("取消");
+      this.show=false
     },
     dianji(ids) {
       this.ids = ids;
