@@ -4,7 +4,11 @@
     <div class="header">
       <mokuai style=" padding: 10px;"></mokuai>
       <!-- v-model="value" -->
-       <van-search  @click="find()" v-model="value" placeholder="搜索你感兴趣的内容" />
+      <van-search
+        @click="find()"
+        v-model="value"
+        placeholder="搜索你感兴趣的内容"
+      />
       <van-icon name="service-o" />
     </div>
 
@@ -71,7 +75,7 @@
         <div class="sr-bot-01" v-for="item in srs" :key="item.id">
           <div v-for="aa in item" :key="aa.id">
             <van-card :thumb="aa.picUrl" @click="dianji(aa.id)">
-              <template #tags >
+              <template #tags>
                 <p>{{ aa.name }}</p>
                 <van-tag plain type="danger">{{ aa.type }}</van-tag>
                 <span>{{ aa.company }}</span>
@@ -401,7 +405,7 @@
     <!-- 刷新 -->
     <div class="refresh">
       <div class="icon">
-        <van-icon name="replay" />
+        <van-icon name="replay" @click="shua" />
         <i>点击刷新</i>
         <span>换一批内容</span>
       </div>
@@ -422,7 +426,7 @@ export default {
   name: "Home",
   data() {
     return {
-      ids:'',
+      ids: "",
       active: 0,
       banners: [],
       gds: [],
@@ -450,14 +454,14 @@ export default {
   },
   components: {
     mokuai,
-    bofang
+    bofang,
   },
   mounted() {},
   methods: {
-    dianji(id){
-      this.ids=id
-       console.log(this.ids)
-      },
+    dianji(id) {
+      this.ids = id;
+      console.log(this.ids);
+    },
     //更多按钮跳转到歌单广场
     jumpsquare() {
       this.$router.push({
@@ -473,11 +477,15 @@ export default {
         },
       });
     },
-     find(){
+    find() {
       this.$router.push({
-        name:'Find',
+        name: "Find",
       });
-    }
+    },
+    //刷新页面
+    shua() {
+      location.reload();
+    },
   },
   created() {
     //轮播图请求
@@ -595,7 +603,7 @@ export default {
 }
 .tj-bot {
   display: flex;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
   overflow-x: auto;
 }
 .tj .van-image {
