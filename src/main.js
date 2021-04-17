@@ -8,6 +8,8 @@ import VueCookies from 'vue-cookies'
 import ElementUI from "element-ui";
 
 import VueAudio from 'vue-audio-better'
+import {Keyframes} from 'vue-keyframes';
+Vue.use(Keyframes);
 Vue.use(VueAudio)
 Vue.use(VueCookies)
 Vue.use(ElementUI);

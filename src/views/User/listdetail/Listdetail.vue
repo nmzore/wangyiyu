@@ -24,9 +24,9 @@
         <van-image width="120px" height="120px" :src="url" />
         <div class="left-text">
           <h6>{{ name }}</h6>
-          <div class="userinfo">
+          <!-- <div class="userinfo">
             <p>{{ desc }}</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
         </p>
       </div>
       <div class="list-content">
-        <van-list v-for="(item, index) in lists" :key="item.id" >
+        <van-list v-for="(item, index) in lists" :key="item.id">
           <p>{{ index + 1 }}</p>
           <div class="listname">
             <span class="listname-top">{{ item.al.name }}</span>
@@ -70,12 +70,12 @@
 import { playlistdetail } from "../../../services/auto";
 import bofang from "../../../components/All/bofang";
 export default {
-    components: {
-    bofang
+  components: {
+    bofang,
   },
   data() {
     return {
-      ids:'',
+      ids: "",
       listid: "",
       url: "",
       name: "",
@@ -98,7 +98,6 @@ export default {
   },
   watch: {},
   methods: {
-     
     gouser() {
       this.$router.push({
         path: "/User",
@@ -117,9 +116,9 @@ export default {
       this.lists = this.lists.concat(res.playlist.tracks);
       console.log(this.lists);
     },
-    dianji(id){
-       console.log(id)
-      this.ids=id
+    dianji(id) {
+      console.log(id);
+      this.ids = id;
     },
   },
 };
@@ -162,22 +161,22 @@ export default {
   /* width: 320px; */
   min-height: 100px;
   margin-top: 15px;
-  margin-left: 15px;
+  margin-left: 10px;
   /* background: #fff; */
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   overflow: hidden;
   padding: 0px 10px;
 }
 .ilike-left {
-  width: 80%;
+  /* width: 40%; */
   display: flex;
   justify-content: left;
   align-items: flex-start;
 }
 .left-text {
-  margin-left: 25px;
+  margin-left: 10px;
 }
 .left-text h6 {
   color: #fff;
@@ -200,7 +199,7 @@ export default {
   padding-right: 15px;
   padding-top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   font-size: 22px;
   font-weight: bold;

@@ -1,5 +1,4 @@
 <template>
-
   <div class="mine mine-style">
     <!-- 侧边栏 -->
     <div>
@@ -39,9 +38,13 @@
           <van-grid-item
             icon="music"
             text="本地下载"
-             @click="dianji(33894312)"
+            @click="dianji(33894312)"
           />
-          <van-grid-item icon="invition" text="云盘"  @click="dianji(1804320463)"/>
+          <van-grid-item
+            icon="invition"
+            text="云盘"
+            @click="dianji(1804320463)"
+          />
           <van-grid-item icon="gift-card" text="已购" />
           <van-grid-item icon="play-circle" text="音乐播放" />
           <van-grid-item icon="friends" text="我的好友" />
@@ -102,8 +105,24 @@
         <van-tab class="collect" title="收藏歌单" name="b">
           <div class="createlist">
             <div class="collect-title">
-              <p>收藏歌单</p>
-              <van-icon name="more-o" />
+              <van-cell is-link @click="showPopup">收藏歌单</van-cell>
+              <van-popup
+                v-model="show"
+                round
+                closeable
+                close-icon-position="top-right"
+                position="bottom"
+                :style="{ height: '30%' }"
+              >
+                <div class="confirm">
+                  <p class="mine-create">我创建的歌单</p>
+                  <p><van-icon class="icon" name="add-o" />创建新歌单</p>
+                  <p>
+                    <van-icon class="icon" name="music-o" />一键导入外部音乐
+                  </p>
+                  <p><van-icon class="icon" name="clock-o" />恢复歌单</p>
+                </div>
+              </van-popup>
             </div>
             <div class="collectcontent">
               <p>暂无收藏的歌单</p>
@@ -119,21 +138,34 @@
               <p>你可以从歌单中筛选</p>
             </div>
             <div class="texts">
-              <p>
-                <span class="a">最近一年收藏</span>的<span class="b"
-                  >古风歌曲</span
-                >古风歌曲
-              </p>
-              <p>陪你一起<span class="c">运动</span>的50首摇滚</p>
-              <p>
-                适合<span class="d">夜晚听</span>的<span class="e">民谣</span>
-              </p>
-              <p>
-                <span class="f">很久未听的</span>华语<span class="g">男声</span
-                >精选
-              </p>
-              <van-button round color="#ff2639" size="small">试试看</van-button>
+              <div class="inner-container">
+                <p>
+                  最近<span class="a">一年收藏</span>的<span class="b"
+                    >古风歌曲</span
+                  >
+                </p>
+                <p>
+                  陪你一起<span class="c">运动</span>的50首<span class="f"
+                    >摇滚</span
+                  >
+                </p>
+                <p>
+                  适合<span class="d">夜晚听</span>的<span class="e">民谣</span>
+                </p>
+                <p>
+                  很久<span class="f">未听的</span>华语<span class="g"
+                    >男声</span
+                  >精选
+                </p>
+                <p>
+                  夜晚<span class="c">学习</span>热血<span class="f">励志</span
+                  >30首
+                </p>
+              </div>
             </div>
+            <van-button round color="#ff2639" size="small" @click="gosquare"
+              >试试看</van-button
+            >
           </div>
         </van-tab>
       </van-tabs>
@@ -141,15 +173,16 @@
     <!-- 为你推荐 -->
     <div class="recommend">
       <p>为你推荐</p>
-      <div class="tuijielist">
+      <div class="tuijianbox">
         <div
-          style="width: 100px"
-          height="100px"
           v-for="item in list2"
           :key="item.id"
+          @click="golistdetail(item.id)"
         >
-          <img :src="item.coverImgUrl" alt="" width="100" height="100" />
-          <p>{{ item.name }}</p>
+          <div class="listcontent">
+            <img :src="item.coverImgUrl" alt="" width="100" height="100" />
+            <p>{{ item.name }}</p>
+          </div>
         </div>
       </div>
       <van-button color="#bababa" plain size="small" round
@@ -162,19 +195,18 @@
 <script>
 import mokuai from "../../components/All/mokuai";
 import bofang from "../../components/All/bofang";
-import { likelist, yonghu, songdetail,userplaylist,
-  toplist, } from "../../services/auto";
+import {
+  likelist,
+  yonghu,
+  songdetail,
+  userplaylist,
+  toplist,
+} from "../../services/auto";
 
 export default {
   data() {
     return {
-      ids:'',
-      activeName: "a",
-      content: [
-        { text: "最近一年收藏的古风歌曲" },
-        { text: "最近一年收藏的古风歌曲" },
-        { text: "最近一年收藏的古风歌曲" },
-      ],
+      ids: "",
       Namea: "立即登录",
       url: "https://img01.yzcdn.cn/vant/cat.jpeg",
       vip: false,
@@ -189,9 +221,15 @@ export default {
       id: "",
       listid: "",
       flag: false,
-      // desc: "0",
-      // title: "我的歌单",
-      // url3: "https://img01.yzcdn.cn/vant/cat.jpeg",
+      show: false,
+      // arr: [
+      //   "1 不是被郭德纲发现的，也不是一开始就收为徒弟。",
+      //   "2 现在雅阁这个状态像极了新A4L上市那段日子。",
+      //   "3 低配太寒碜，各种需要加装，中配定价过高，又没啥特色",
+      //   "4 然后各种机油门、经销商造反什么的幺蛾子。",
+      //   "5 看五月销量，建议参考A4，打8折吧。",
+      //   "1 不是被郭德纲发现的，也不是一开始就收为徒弟。",
+      // ],
     };
   },
   async created() {
@@ -252,11 +290,12 @@ export default {
     const arr = res4.list;
     console.log(this.listid);
     console.log(arr);
-    this.list2 = this.list2.concat(arr.slice(0, 6));
+    // this.list2 = this.list2.concat(arr.slice(0, 18));
+    this.list2 = arr;
   },
   methods: {
-    dianji(ids){
-      this.ids=ids
+    dianji(ids) {
+      this.ids = ids;
     },
     nowlogin() {
       if (localStorage.cookie != null) {
@@ -287,28 +326,39 @@ export default {
         },
       });
     },
-    // beforeEnter() {
-    //   style.transform = "translate(0,0)";
-    // },
-
-    // enter(done) {
-    //   offsetWidth;
-    //   style.transform = "translate(150px,450px)";
-    //   style.transition = "all 1s ease";
-
-    //   done();
-    // },
-    // afterEnter() {
-    //   this.flag = !this.flag;
-    // },
+    gosquare() {
+      this.$router.push({
+        path: "/square",
+      });
+    },
+    showPopup() {
+      this.show = true;
+    },
   },
   components: {
     mokuai,
-    bofang
+    bofang,
+  },
+  computed: {
+    text() {
+      return {
+        id: this.number,
+        val: this.arr[this.number],
+      };
+    },
+  },
+  startMove() {
+    let timer = setTimeout(() => {
+      if (this.number === 5) {
+        this.number = 0;
+      } else {
+        this.number += 1;
+      }
+      this.startMove(timer);
+    }, 2000);
   },
 };
 </script>
-
 <style>
 * {
   margin: 0;
@@ -507,10 +557,28 @@ export default {
   font-size: 14px;
   color: #949494;
 }
-.mine-style .collect-title .van-icon-more-o {
-  font-size: 20px;
-  color: #979797;
-  margin-right: 10px;
+
+.mine-style .confirm {
+  padding: 20px;
+}
+.mine-style .confirm .mine-create {
+  border-bottom: solid 1px #ccc;
+  color: #616161;
+  margin-bottom: 15px;
+}
+.mine-style .confirm p {
+  line-height: 40px;
+  text-align: left;
+  font-size: 14px;
+  color: #2b2929;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.mine-style .icon {
+  font-size: 25px;
+  color: #504f4f;
+  margin-right: 20px;
 }
 .mine-style .collectcontent p {
   font-size: 14px;
@@ -520,7 +588,6 @@ export default {
   text-align: center;
   line-height: 80px;
 }
-
 .mine-style .helper-content p {
   width: 85%;
   height: 30px;
@@ -531,42 +598,92 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-top: 40px;
+  width: 300px;
+  height: 35px;
+  overflow: hidden;
 }
-.mine-style .createlist .texts p {
-  font-size: 13px;
+.inner-container {
+  animation: myMove 5s linear infinite;
+  animation-fill-mode: forwards;
+}
+/*文字无缝滚动*/
+@keyframes myMove {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-30px);
+  }
+  20% {
+    transform: translateY(-30px);
+  }
+  30% {
+    transform: translateY(-60px);
+  }
+  40% {
+    transform: translateY(-60px);
+  }
+  50% {
+    transform: translateY(-90px);
+  }
+  60% {
+    transform: translateY(-90px);
+  }
+  70% {
+    transform: translateY(-120px);
+  }
+  80% {
+    transform: translateY(-120px);
+  }
+  90% {
+    transform: translateY(-150px);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
+}
+.mine-style .inner-container p {
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
   color: #6d6d6d;
-  margin: 10px 0;
+  width: 300px;
+  height: 30px;
+
+  /* margin: px 0; */
 }
 .a {
-  color: #e77fcd;
+  color: #f164ce;
   background: pink;
 }
 .b {
   color: #ec44c2;
-  background: rgb(247, 138, 156);
+  background: rgb(245, 189, 198);
 }
 .c {
-  color: #1b75c9;
+  color: #094c8b;
   background: rgb(180, 213, 240);
 }
 .d {
-  color: #17e644;
+  color: #054d14;
   background: rgb(183, 228, 205);
 }
 .e {
-  color: #0f837d;
+  color: #053836;
   background: rgb(161, 189, 172);
 }
 .f {
-  color: #dce73c;
+  color: #3b3f03;
   background: rgb(234, 241, 203);
 }
 .g {
-  color: #e77fcd;
+  color: #ec08b3;
   background: pink;
 }
-
+.mine-style .createlist button {
+  margin-left: 130px;
+}
 .mine-style .recommend {
   padding: 20px 20px;
 }
@@ -575,11 +692,13 @@ export default {
   color: #616161;
   margin-bottom: 10px;
 }
-.mine-style .tuijielist {
+.mine-style .tuijianbox {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
+  overflow-x: auto;
+}
+.mine-style .tuijianbox .listcontent {
+  width: 100px;
+  margin: 0 10px;
 }
 .mine-style .van-button--plain {
   margin-top: 15px;
